@@ -15,7 +15,8 @@
 		"biome:lint": "biome check .",
 		"biome:check": "biome check --write .",
 		"build": "bun run --filter './packages/*' build",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"test": "bun run --filter './packages/*' test"
 	},
 	"engines": {
 		"bun": ">=1.1.0"
