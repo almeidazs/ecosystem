@@ -15,13 +15,21 @@ export class AbacatePayError extends Error {
 export class HTTPError extends Error {
 	public constructor(
 		/**
+		 * The content of the error message
+		 */
+		public message: string,
+		/**
 		 * Route that returned the error (e.g. `/store/get`)
 		 */
 		public route: string,
 		/**
-		 * The content of the error message
+		 * Status code of the response
 		 */
-		public message: string,
+		public status: number,
+		/**
+		 * Method used in the request
+		 */
+		public method: string,
 	) {
 		super(message);
 

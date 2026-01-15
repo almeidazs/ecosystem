@@ -102,12 +102,12 @@ export class REST {
 
 			if (isTimeoutError)
 				// TODO: Add retryable timeout
-				throw new HTTPError(
-					route,
+				// AbacatePayError will be moved to TimeoutError later
+				throw new AbacatePayError(
 					`Your request timed out (Waited for ${timeout}ms)`,
 				);
 
-			throw new HTTPError(route, `${err}`);
+			throw new HTTPError(`${err}`, route, 0, '');
 		}
 	}
 
@@ -122,8 +122,10 @@ export class REST {
 
 			if (attempt >= retry.max)
 				throw new HTTPError(
-					route,
 					`${retry.max} attempts were performed, all failed`,
+					route,
+					response.status,
+					options.method,
 				);
 
 			if (response.status === RATE_LIMIT_STATUS_CODE && onRateLimit)
