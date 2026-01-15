@@ -12,6 +12,7 @@ export const CustomerSchema = z.object({
 	email: z.string().email('Invalid email address'),
 	taxId: z.string().min(1, 'Tax ID is required'),
 	cellphone: z.string().min(1, 'Cellphone is required'),
+	zipCode: z.string().optional(),
 
 	birthdate: z.iso.datetime().optional(),
 	gender: z.enum(['M', 'F', 'O']).optional(),
@@ -149,13 +150,17 @@ export const CustomerSchema = z.object({
 export type Customer = z.infer<typeof CustomerSchema>;
 
 /**
- * Customer creation schema (Simplified for V2 docs)
+ * Customer creation schema
  */
 export const CreateCustomerSchema = z.object({
-	name: z.string().min(1, 'Customer name is required'),
-	cellphone: z.string().min(1, 'Cellphone is required'),
-	email: z.string().email('Invalid email address'),
-	taxId: z.string().min(1, 'Tax ID is required'),
+	data: z.object({
+		email: z.string().email('Invalid email address'),
+		taxId: z.string().optional(),
+		name: z.string().optional(),
+		cellphone: z.string().optional(),
+		zipCode: z.string().optional(),
+	}),
+	metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type CreateCustomer = z.infer<typeof CreateCustomerSchema>;

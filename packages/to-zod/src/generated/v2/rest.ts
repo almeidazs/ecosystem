@@ -21,7 +21,7 @@ import {
 	PixQrCodeSchema,
 	CreatePixQrCodeSchema,
 	PixTransactionSchema,
-} from './entities/pix';
+} from './entities/transparents';
 import {
 	CreateStoreSchema,
 	StoreSchema,
