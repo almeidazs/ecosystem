@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { DiscountTypeV2Schema } from './enums';
 
 /**
  * Base coupon schema without refinements

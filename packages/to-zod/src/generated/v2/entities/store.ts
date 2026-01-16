@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { MissingTokenErrorSchema } from './errors';
 
 const balanceSchema = z.object({
 	available: z.number(),
@@ -7,9 +6,14 @@ const balanceSchema = z.object({
 	blocked: z.number(),
 });
 
-export const StoreSchema = z.object({
+export const StoreResponseSchema = z.object({
 	id: z.string(),
 	name: z.string().min(1, 'Store name is required'),
 	balance: balanceSchema,
-	error: MissingTokenErrorSchema.nullable(),
+	error: z.null(),
+});
+
+export const StoreErrorSchema = z.object({
+	error: z.string(),
+	data: z.null(),
 });

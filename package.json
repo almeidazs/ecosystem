@@ -1,27 +1,49 @@
 {
-	"name": "abacatepay",
-	"private": true,
+	"name": "@abacatepay/rest",
+	"version": "0.0.1",
 	"type": "module",
-	"workspaces": [
-		"packages/*"
-	],
-	"devDependencies": {
-		"@biomejs/biome": "^2.3.11",
-		"@commitlint/cli": "^20.3.1",
-		"@commitlint/config-conventional": "^20.3.1",
-		"@types/bun": "latest",
-		"typescript": "^5.9.3"
+	"sideEffects": false,
+	"license": "Apache-2.0",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
 	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
 	"scripts": {
-		"biome:format": "biome format .",
-		"biome:lint": "biome check .",
-		"biome:check": "biome check --write .",
-		"build": "bun run --filter './packages/*' build",
-		"typecheck": "tsc --noEmit",
-		"test": "bun run --filter './packages/*' test"
+		"test": "bun test",
+		"build": "rm -rf dist && bun run scripts/version.ts && bun build src/index.ts --outdir dist --target node && bun run types",
+		"types": "bunx tsc --emitDeclarationOnly",
+		"prepublishOnly": "bun run build"
 	},
 	"engines": {
-		"bun": ">=1.1.0"
+		"node": ">=18",
+		"bun": ">=1.0.0"
 	},
-	"license": "Apache-2.0"
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/almeidazs/ecosystem"
+	},
+	"keywords": [
+		"abacatepay",
+		"payments",
+		"sdk",
+		"rest",
+		"api",
+		"typescript"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.11",
+		"typescript": "^5.0.0"
+	},
+	"description": "A REST client for AbacatePay API"
 }

@@ -1,39 +1,17 @@
 import { z } from 'zod';
-import {
-	CheckoutItemSchema,
-	CheckoutSchema,
-	CreateCheckoutSchema,
-} from './entities/checkouts';
+import { CreateCheckoutSchema } from './entities/checkouts';
 import {
 	ApplyCouponSchema,
-	CouponApplicationResultSchema,
-	CouponSchema,
 	CreateCouponSchema,
 	UpdateCouponSchema,
 } from './entities/coupon';
 import {
 	CreateCustomerSchema,
-	CustomerSchema,
 	UpdateCustomerSchema,
 } from './entities/customer';
-import {
-	PixKeySchema,
-	PixQrCodeSchema,
-	CreatePixQrCodeSchema,
-	PixTransactionSchema,
-} from './entities/transparents';
-import {
-	CreateStoreSchema,
-	StoreSchema,
-	UpdateStoreSchema,
-} from './entities/store';
-import {
-	ApproveWithdrawSchema,
-	CreateWithdrawSchema,
-	UpdateWithdrawSchema,
-	WithdrawBatchSchema,
-	WithdrawSchema,
-} from './entities/withdraw';
+import { CreateStoreSchema, UpdateStoreSchema } from './entities/store';
+import { CreatePixQrCodeSchema } from './entities/transparents';
+import {} from './entities/payouts.ts';
 
 /**
  * Common API response schema
@@ -97,7 +75,7 @@ export const CustomerApiSchemas = {
 		page: z.coerce.number().int().min(1).default(1),
 		limit: z.coerce.number().int().min(1).max(100).default(20),
 		search: z.string().optional(),
-		email: z.string().email().optional(),
+		email: z.email().optional(),
 		taxId: z.string().optional(),
 		status: z.array(z.string()).optional(),
 		createdAfter: z.iso.datetime().optional(),

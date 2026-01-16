@@ -7,7 +7,11 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"paths": {
-			"@abacatepay/*": ["./packages/*/src"]
+			"@abacatepay/*": ["./packages/*/src"],
+			"@abacatepay/types": ["./packages/types/src"],
+			"@abacatepay/types/v1": ["./packages/types/types/v1"],
+			"@abacatepay/types/v2": ["./packages/types/types/v2"],
+			"@abacatepay/rest": ["./packages/rest/src"]
 		}
 	}
 }

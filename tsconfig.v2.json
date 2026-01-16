@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"paths": {
+			"@abacatepay/types": ["./packages/types/dist/v2"],
+			"@abacatepay/types/v2": ["./packages/types/dist/v2"]
+		}
+	},
+	"include": ["packages/types/types/v2/**/*", "packages/rest/src/**/*"],
+	"exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
