@@ -3,7 +3,7 @@ import { createResponseSchema } from '../response';
 
 export const MerchantInfoDataSchema = z.object({
 	name: z.string(),
-	website: z.string().url(),
+	website: z.url(),
 	createdAt: z.coerce.date(),
 });
 

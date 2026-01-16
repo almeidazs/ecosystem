@@ -7,10 +7,8 @@ export * from './entities/mrr';
 export * from './entities/payouts';
 export * from './entities/store';
 export * from './entities/webhook';
-export * from './entities/withdraw';
 
 export * from './rest';
-export * from './utils';
 
 /**
  * Version information

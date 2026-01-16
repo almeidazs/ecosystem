@@ -33,9 +33,9 @@ export const EnhancedMetadataSchema = z.object({
 	affiliateId: z.string().optional(),
 	marketplaceId: z.string().optional(),
 	termsAccepted: z.boolean().optional(),
-	termsAcceptedAt: z.iso.datetime().optional(),
+	termsAcceptedAt: z.coerce.date().optional(),
 	privacyAccepted: z.boolean().optional(),
-	privacyAcceptedAt: z.iso.datetime().optional(),
+	privacyAcceptedAt: z.coerce.date().optional(),
 	customFields: z.record(z.string(), z.unknown()).optional(),
 	legacy: z.record(z.string(), z.unknown()).optional(),
 });
@@ -50,16 +50,16 @@ export const PixMetadataSchema = z.object({
 	key: z.string().min(1, 'PIX key is required'),
 	qrCodeUrl: z.url().optional(),
 	qrCodeText: z.string().optional(),
-	expiresAt: z.iso.datetime().optional(),
+	expiresAt: z.coerce.date().optional(),
 	merchantName: z.string().optional(),
 	merchantCity: z.string().optional(),
 	merchantCnpj: z.string().optional(),
 	amount: z.number().min(0).optional(),
 	description: z.string().optional(),
 	txid: z.string().optional(),
-	createdAt: z.iso.datetime().optional(),
-	paidAt: z.iso.datetime().optional(),
-	refundAt: z.iso.datetime().optional(),
+	createdAt: z.coerce.date().optional(),
+	paidAt: z.coerce.date().optional(),
+	refundAt: z.coerce.date().optional(),
 });
 
 export type PixMetadata = z.infer<typeof PixMetadataSchema>;
@@ -69,12 +69,12 @@ export type PixMetadata = z.infer<typeof PixMetadataSchema>;
  */
 export const CustomerMetadataSchema = z.object({
 	name: z.string().min(1, 'Customer name is required'),
-	email: z.string().email('Invalid email address'),
+	email: z.email('Invalid email address'),
 	taxId: z.string().min(1, 'Tax ID is required'),
 	cellphone: z.string().min(1, 'Cellphone is required'),
 
 	// Enhanced customer fields
-	birthdate: z.iso.datetime().optional(),
+	birthdate: z.coerce.date().optional(),
 	gender: z.enum(['M', 'F', 'O']).optional(),
 	profession: z.string().optional(),
 	company: z.string().optional(),
@@ -94,12 +94,12 @@ export const CustomerMetadataSchema = z.object({
 	smsNotifications: z.boolean().default(true),
 	whatsappNotifications: z.boolean().default(false),
 	loyaltyPoints: z.number().min(0).default(0),
-	customerSince: z.iso.datetime().optional(),
-	lastPurchase: z.iso.datetime().optional(),
+	customerSince: z.coerce.date().optional(),
+	lastPurchase: z.coerce.date().optional(),
 	segment: z.string().optional(),
 	tags: z.array(z.string()).optional(),
 	verified: z.boolean().default(false),
-	verifiedAt: z.iso.datetime().optional(),
+	verifiedAt: z.coerce.date().optional(),
 	verificationMethod: z.string().optional(),
 });
 
@@ -131,7 +131,7 @@ export const ProductMetadataSchema = z.object({
 		.optional(),
 	downloadUrl: z.url().optional(),
 	licenseKey: z.string().optional(),
-	expirationDate: z.iso.datetime().optional(),
+	expirationDate: z.coerce.date().optional(),
 	stock: z.number().int().min(0).optional(),
 	trackInventory: z.boolean().default(false),
 	taxable: z.boolean().default(true),

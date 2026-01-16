@@ -28,7 +28,7 @@ export const ApiResponseSchema = z.object({
 		.optional(),
 	metadata: z
 		.object({
-			timestamp: z.iso.datetime(),
+			timestamp: z.coerce.date(),
 			requestId: z.string(),
 			version: z.string().default('2.0'),
 			pagination: z
@@ -78,8 +78,8 @@ export const CustomerApiSchemas = {
 		email: z.email().optional(),
 		taxId: z.string().optional(),
 		status: z.array(z.string()).optional(),
-		createdAfter: z.iso.datetime().optional(),
-		createdBefore: z.iso.datetime().optional(),
+		createdAfter: z.coerce.date().optional(),
+		createdBefore: z.coerce.date().optional(),
 		sortBy: z
 			.enum(['createdAt', 'updatedAt', 'name', 'email'])
 			.default('createdAt'),
@@ -266,7 +266,7 @@ export const WithdrawApiSchemas = {
 		name: z.string().min(1),
 		description: z.string().optional(),
 		withdrawals: z.array(z.string()).min(1),
-		scheduledFor: z.iso.datetime().optional(),
+		scheduledFor: z.coerce.date().optional(),
 	}),
 };
 

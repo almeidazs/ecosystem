@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { createListResponseSchema, createResponseSchema } from '../response';
 
 /**
  * Base coupon schema without refinements
@@ -16,8 +17,8 @@ export const BaseCouponSchema = z.object({
 
 	active: z.boolean().default(true),
 	// ... timestamps
-	createdAt: z.iso.datetime(),
-	updatedAt: z.iso.datetime(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
 
 	// Keeping other fields as optional metadata
 	metadata: z.record(z.string(), z.unknown()).optional(),
@@ -95,9 +96,15 @@ export const CouponApplicationResultSchema = z.object({
 	finalAmount: z.number().min(0),
 	message: z.string(),
 	warnings: z.array(z.string()).optional(),
-	appliedAt: z.iso.datetime(),
+	appliedAt: z.coerce.date(),
 });
 
 export type CouponApplicationResult = z.infer<
 	typeof CouponApplicationResultSchema
 >;
+
+export const CouponResponseSchema = createResponseSchema(CouponSchema);
+export const ListCouponResponseSchema = createListResponseSchema(CouponSchema);
+
+export type CouponResponse = z.infer<typeof CouponResponseSchema>;
+export type ListCouponResponse = z.infer<typeof ListCouponResponseSchema>;

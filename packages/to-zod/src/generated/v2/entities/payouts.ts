@@ -16,7 +16,7 @@ export const PayoutSchema = z.object({
 	id: z.string(),
 	status: z.string(),
 	devMode: z.boolean(),
-	receiptUrl: z.string().url().nullable(),
+	receiptUrl: z.url().nullable(),
 	kind: z.string().optional(),
 	amount: z.number(),
 	platformFee: z.number(),

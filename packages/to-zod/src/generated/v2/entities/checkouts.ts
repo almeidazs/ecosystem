@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { createListResponseSchema, createResponseSchema } from '../response';
 
 export const CheckoutItemSchema = z.object({
 	id: z.string().min(1, 'Product ID is required'),
@@ -28,36 +29,6 @@ export const CreateCheckoutSchema = z.object({
 
 export type CreateCheckout = z.infer<typeof CreateCheckoutSchema>;
 
-/*
- *{
-	"data": [
-		{
-			"id": "bill_abc123xyz",
-			"externalId": "pedido-123",
-			"url": "https://app.abacatepay.com/pay/bill_abc123xyz",
-			"amount": 10000,
-			"paidAmount": null,
-			"items": [
-				{
-					"id": "prod_456",
-					"quantity": 2
-				}
-			],
-			"status": "PENDING",
-			"coupons": [],
-			"devMode": false,
-			"customerId": null,
-			"returnUrl": null,
-			"completionUrl": null,
-			"receiptUrl": null,
-			"metadata": {},
-			"createdAt": "2024-11-04T18:38:28.573Z",
-			"updatedAt": "2024-11-04T18:38:28.573Z"
-		}
-	],
-	"error": "<unknown>"
-}
- * */
 const StatusEnum = z.enum([
 	'PENDING',
 	'EXPIRED',
@@ -72,18 +43,21 @@ export const CheckoutSchema = z.object({
 	url: z.url(),
 	amount: z.number(),
 	paidAmount: z.number().nullable(),
-	coupons: z.array(z.string()).nullable(),
-	items: CheckoutItemSchema,
+	coupons: z.array(z.string()).optional(),
+	items: z.array(CheckoutItemSchema),
 	status: StatusEnum,
 	devMode: z.boolean(),
 	customerId: z.string().nullable(),
 	returnUrl: z.url().nullable(),
 	completionUrl: z.url().nullable(),
 	receiptUrl: z.url().nullable(),
-	metadata: z.object(),
+	metadata: z.record(z.string(), z.unknown()).optional(),
 	createdAt: z.coerce.date(),
 	updatedAt: z.coerce.date(),
-	error: z.null(),
 });
 
-export type Checkout = z.infer<typeof CheckoutSchema>;
+export const CheckoutResponseSchema = createResponseSchema(CheckoutSchema);
+export const ListCheckoutResponseSchema = createListResponseSchema(CheckoutSchema);
+
+export type CheckoutResponse = z.infer<typeof CheckoutResponseSchema>;
+export type ListCheckoutResponse = z.infer<typeof ListCheckoutResponseSchema>;

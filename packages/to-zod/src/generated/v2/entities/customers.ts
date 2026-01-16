@@ -1,20 +1,18 @@
 import { z } from 'zod';
 import { CustomerMetadataSchema } from './metadata';
+import { createListResponseSchema, createResponseSchema } from '../response';
 
-/**
- * Customer schema for v2
- */
 export const CustomerSchema = z.object({
 	id: z.string(),
 	externalId: z.string().optional(),
 
 	name: z.string().min(1, 'Customer name is required'),
-	email: z.string().email('Invalid email address'),
+	email: z.email('Invalid email address'),
 	taxId: z.string().min(1, 'Tax ID is required'),
 	cellphone: z.string().min(1, 'Cellphone is required'),
 	zipCode: z.string().optional(),
 
-	birthdate: z.iso.datetime().optional(),
+	birthdate: z.coerce.date().optional(),
 	gender: z.enum(['M', 'F', 'O']).optional(),
 	profession: z.string().optional(),
 
@@ -71,8 +69,8 @@ export const CustomerSchema = z.object({
 		.object({
 			points: z.number().int().min(0).default(0),
 			tier: z.string().optional(),
-			memberSince: z.iso.datetime().optional(),
-			lastPurchase: z.iso.datetime().optional(),
+			memberSince: z.coerce.date().optional(),
+			lastPurchase: z.coerce.date().optional(),
 			totalPurchases: z.number().min(0).default(0),
 			averageOrderValue: z.number().min(0).optional(),
 		})
@@ -90,7 +88,7 @@ export const CustomerSchema = z.object({
 	verification: z
 		.object({
 			verified: z.boolean().default(false),
-			verifiedAt: z.iso.datetime().optional(),
+			verifiedAt: z.coerce.date().optional(),
 			verificationMethod: z
 				.enum(['DOCUMENT', 'SMS', 'EMAIL', 'BANK', 'MANUAL'])
 				.optional(),
@@ -99,7 +97,7 @@ export const CustomerSchema = z.object({
 					z.object({
 						type: z.string(),
 						number: z.string(),
-						verifiedAt: z.iso.datetime().optional(),
+						verifiedAt: z.coerce.date().optional(),
 					}),
 				)
 				.optional(),
@@ -120,7 +118,7 @@ export const CustomerSchema = z.object({
 				last4: z.string().optional(),
 				brand: z.string().optional(),
 				isDefault: z.boolean().default(false),
-				createdAt: z.iso.datetime(),
+				createdAt: z.coerce.date(),
 			}),
 		)
 		.optional(),
@@ -130,7 +128,7 @@ export const CustomerSchema = z.object({
 			score: z.number().min(0).max(1000).optional(),
 			level: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']).optional(),
 			flags: z.array(z.string()).optional(),
-			lastAssessedAt: z.iso.datetime().optional(),
+			lastAssessedAt: z.coerce.date().optional(),
 		})
 		.optional(),
 
@@ -141,10 +139,10 @@ export const CustomerSchema = z.object({
 	status: z
 		.enum(['ACTIVE', 'INACTIVE', 'SUSPENDED', 'DELETED'])
 		.default('ACTIVE'),
-	createdAt: z.iso.datetime(),
-	updatedAt: z.iso.datetime(),
-	deletedAt: z.iso.datetime().optional(),
-	lastLoginAt: z.iso.datetime().optional(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+	deletedAt: z.coerce.date().optional(),
+	lastLoginAt: z.coerce.date().optional(),
 });
 
 export type Customer = z.infer<typeof CustomerSchema>;
@@ -154,7 +152,7 @@ export type Customer = z.infer<typeof CustomerSchema>;
  */
 export const CreateCustomerSchema = z.object({
 	data: z.object({
-		email: z.string().email('Invalid email address'),
+		email: z.email('Invalid email address'),
 		taxId: z.string().optional(),
 		name: z.string().optional(),
 		cellphone: z.string().optional(),
@@ -175,3 +173,9 @@ export const UpdateCustomerSchema = CustomerSchema.partial().omit({
 });
 
 export type UpdateCustomer = z.infer<typeof UpdateCustomerSchema>;
+
+export const CustomerResponseSchema = createResponseSchema(CustomerSchema);
+export const ListCustomerResponseSchema = createListResponseSchema(CustomerSchema);
+
+export type CustomerResponse = z.infer<typeof CustomerResponseSchema>;
+export type ListCustomerResponse = z.infer<typeof ListCustomerResponseSchema>;

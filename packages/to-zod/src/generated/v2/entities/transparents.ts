@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { createResponseSchema } from '../response';
 
 export const PixQrCodeSchema = z.object({
 	id: z.string(),
@@ -8,9 +9,9 @@ export const PixQrCodeSchema = z.object({
 	brCode: z.string(),
 	brCodeBase64: z.string(),
 	platformFee: z.number().int().optional(),
-	createdAt: z.date(),
-	updatedAt: z.date(),
-	expiresAt: z.date(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+	expiresAt: z.coerce.date(),
 	metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
@@ -54,3 +55,6 @@ export type PixTransaction = PixQrCode;
 
 export const PixStaticQrCodeSchema = PixQrCodeSchema;
 export type PixStaticQrCode = PixQrCode;
+
+export const PixQrCodeResponseSchema = createResponseSchema(PixQrCodeSchema);
+export type PixQrCodeResponse = z.infer<typeof PixQrCodeResponseSchema>;
