@@ -15,6 +15,7 @@ Todos os pacotes vivem em `packages/*` e são publicados como `@abacatepay/<nome
 </div>
 
 - [`@abacatepay/rest`](https://www.npmjs.com/package/@abacatepay/rest) — Client REST completo e tipado para a API da AbacatePay.
+- [`@abacatepay/types`](https://www.npmjs.com/package/@abacatepay/types) - Tipagens e helpers completos da API da AbacatePay (Com versionamento).
 
 <div align="center">
 
