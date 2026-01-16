@@ -1,8 +1,11 @@
 import type { PaymentStatus } from './checkout';
 
+/**
+ * https://docs.abacatepay.com/pages/transparents/reference
+ */
 export interface APIQRCodePIX {
 	/**
-	 * Unique billing identifier.
+	 * Unique QRCode PIX identifier.
 	 */
 	id: string;
 	/**
@@ -10,7 +13,7 @@ export interface APIQRCodePIX {
 	 */
 	amount: number;
 	/**
-	 * Billing status. Can be `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.
+	 * PIX status. Can be `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.
 	 *
 	 * @see {@link PaymentStatus}
 	 */
@@ -19,10 +22,6 @@ export interface APIQRCodePIX {
 	 * Indicates whether the charge is in a testing (true) or production (false) environment.
 	 */
 	devMode: boolean;
-	/**
-	 * Payment method.
-	 */
-	method: 'PIX';
 	/**
 	 * PIX code (copy-and-paste) for payment.
 	 */
@@ -35,14 +34,6 @@ export interface APIQRCodePIX {
 	 * Platform fee in cents. Example: 80 means R$0.80.
 	 */
 	platformFee: number;
-	/**
-	 * Payment description.
-	 */
-	description: string;
-	/**
-	 * Payment metadata.
-	 */
-	metadata: Record<string, unknown>;
 	/**
 	 * QRCode PIX creation date and time.
 	 */

@@ -184,12 +184,12 @@ export interface RESTPostCreateNewCheckoutBody {
 export type RESTPostCreateNewCheckoutData = APICheckout;
 
 /**
- * https://api.abacatepay.com/v2/pixQrCode/create
+ * https://api.abacatepay.com/v2/transparents/create
  *
- * @reference https://docs.abacatepay.com/pages/pix-qrcode/create
+ * @reference https://docs.abacatepay.com/pages/transparents/create
  */
 export interface RESTPostCreateQRCodePixBody
-	extends Pick<RESTPostCreateNewChargeBody, 'customer' | 'metadata'> {
+	extends Pick<RESTPostCreateNewCheckoutBody, 'customer' | 'metadata'> {
 	/**
 	 * Charge amount in cents.
 	 */
@@ -205,18 +205,18 @@ export interface RESTPostCreateQRCodePixBody
 }
 
 /**
- * https://api.abacatepay.com/v2/pixQrCode/create
+ * https://api.abacatepay.com/v2/transparents/create
  *
- * @reference https://docs.abacatepay.com/pages/pix-qrcode/create
+ * @reference https://docs.abacatepay.com/pages/transparents/create
  */
 export type RESTPostCreateQRCodePixData = APIQRCodePIX;
 
 /**
- * https://api.abacatepay.com/v2/pixQrCode/simulate-payment
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
  *
- * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
  */
-export interface RESTPostSimulatePaymentQueryParams {
+export interface RESTPostSimulateQRCodePixPaymentQueryParams {
 	/**
 	 * QRCode Pix ID.
 	 */
@@ -224,11 +224,23 @@ export interface RESTPostSimulatePaymentQueryParams {
 }
 
 /**
- * https://api.abacatepay.com/v2/pixQrCode/simulate-payment
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
  *
- * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
  */
-export type RESTPostSimulatePaymentData = APIQRCodePIX;
+export interface RESTPostSimulateQRCodePixPaymentBody {
+	/**
+	 * Optional metadata for the request.
+	 */
+	metadata?: Record<string, object>;
+}
+
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
+export type RESTPostSimulateQRCodePixPaymentData = APIQRCodePIX;
 
 /**
  * https://api.abacatepay.com/v2/pixQrCode/check
@@ -243,9 +255,9 @@ export interface RESTGetCheckQRCodePixStatusQueryParams {
 }
 
 /**
- * https://api.abacatepay.com/v2/pixQrCode/check
+ * https://api.abacatepay.com/v2/transparents/check
  *
- * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
+ * @reference https://docs.abacatepay.com/pages/transparents/check
  */
 export interface RESTGetCheckQRCodePixStatusData {
 	/**
