@@ -481,7 +481,6 @@ export type RESTGetListWithdrawsData = APIWithdraw[];
  *
  * @reference https://docs.abacatepay.com/pages/coupons/list
  */
-// TODO: Add `pagination` field
 export type RESTGetListCouponsData = APICoupon[];
 
 /**
@@ -491,13 +490,13 @@ export type RESTGetListCouponsData = APICoupon[];
  */
 export interface RESTGetListCouponsQueryParams {
 	/**
-	 * Page number
+	 * Page number.
 	 *
 	 * @default 1
 	 */
 	page?: number;
 	/**
-	 * Number of items per page
+	 * Number of items per page.
 	 */
 	limit?: number;
 }
@@ -509,7 +508,7 @@ export interface RESTGetListCouponsQueryParams {
  */
 export interface RESTGetCouponQueryParams {
 	/**
-	 * The ID of the coupon
+	 * The ID of the coupon.
 	 */
 	id: string;
 }
@@ -528,7 +527,7 @@ export type RESTGetCouponData = APICoupon;
  */
 export interface RESTDeleteCouponBody {
 	/**
-	 * The ID of the coupon
+	 * The ID of the coupon.
 	 */
 	id: string;
 }
@@ -547,7 +546,7 @@ export type RESTDeleteCouponData = APICoupon;
  */
 export interface RESTPatchToggleCouponStatusBody {
 	/**
-	 * The ID of the coupon
+	 * The ID of the coupon.
 	 */
 	id: string;
 }
@@ -586,11 +585,11 @@ export type RESTPostCreateProductData = APIProduct;
  */
 export interface RESTGetListProductsQueryParams {
 	/**
-	 * Page number
+	 * Page number.
 	 */
 	page?: number;
 	/**
-	 * Limit of products to return
+	 * Limit of products to return.
 	 */
 	limit?: number;
 }
@@ -609,11 +608,11 @@ export type RESTGetListProductsData = APIProduct[];
  */
 export interface RESTGetProductQueryParams {
 	/**
-	 * The product ID
+	 * The product ID.
 	 */
 	id?: string;
 	/**
-	 * External ID of the product
+	 * External ID of the product.
 	 */
 	externalId?: string;
 }
@@ -632,7 +631,7 @@ export type RESTGetProductData = APIProduct;
  */
 export interface RESTPostCreateSubscriptionBody extends Pick<APISubscription, 'amount' | 'name' | 'externalId' | 'method' | 'frequency' | 'customerId' | 'retryPolicy'> {
 	/**
-	 * Subscription description
+	 * Subscription description.
 	 */
 	description?: string;
 }
@@ -651,11 +650,11 @@ export type RESTPostCreateSubscriptionData = APISubscription;
  */
 export interface RESTGetListSubscriptionsQueryParams {
 	/**
-	 * Cursor for the pagination
+	 * Cursor for the pagination.
 	 */
 	cursor?: string;
 	/**
-	 * Number of items per page
+	 * Number of items per page.
 	 * 
 	 * @default 20
 	 */

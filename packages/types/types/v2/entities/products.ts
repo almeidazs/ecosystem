@@ -3,23 +3,23 @@
  */
 export interface APIProduct {
 	/**
-	 * The ID of your product
+	 * The ID of your product.
 	 */
 	id: string;
 	/**
-	 * Unique product identifier in your system
+	 * Unique product identifier in your system.
 	 */
 	externalId: string;
 	/**
-	 * Product name
+	 * Product name.
 	 */
 	name: string;
 	/**
-	 * Product price in cents
+	 * Product price in cents.
 	 */
 	price: number;
 	/**
-	 * Product currency
+	 * Product currency.
 	 */
 	// TODO: Review this
 	currency: string;
@@ -28,19 +28,19 @@ export interface APIProduct {
 	 */
 	status: ProductStatus;
 	/**
-	 * Indicates whether the product was created in a testing environment
+	 * Indicates whether the product was created in a testing environment.
 	 */
 	devMode: boolean;
 	/**
-	 * Product creation date
+	 * Product creation date.
 	 */
 	createdAt: string;
 	/**
-	 * Product update date
+	 * Product update date.
 	 */
 	updatedAt: string;
 	/**
-	 * Product description
+	 * Product description.
 	 */
 	description: string | null;
 }

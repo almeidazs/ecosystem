@@ -5,23 +5,23 @@ import type { PaymentMethod } from './charge';
  */
 export interface APISubscription {
     /**
-     * The ID of the subscription
+     * The ID of the subscription.
      */
     id: string;
 	/**
-	 * The subscription value in cents
+	 * The subscription value in cents.
 	 */
 	amount: number;
     /**
-     * Subscription currenty
+     * Subscription currenty.
      */
     currency: string;
 	/**
-	 * Subscription name
+	 * Subscription name.
 	 */
 	name: string;
     /**
-     * Subscription description
+     * Subscription description.
      */
     description: string;
 	/**
@@ -41,11 +41,11 @@ export interface APISubscription {
      */
     updatedAt: string;
 	/**
-	 * Payment method for the subscription
+	 * Payment method for the subscription.
 	 */
 	method: PaymentMethod;
     /**
-     * Status of the subscription
+     * Status of the subscription.
      */
     status: SubscriptionStatus;
 	/**
@@ -79,7 +79,7 @@ export interface APISubscription {
 		retryEvery: number;
 	};
     /**
-     * Array of events related to the subscription
+     * Array of events related to the subscription.
      */
     events: APISubscriptionEvent[];
 }
@@ -97,13 +97,13 @@ export enum SubscriptionStatus {
  */
 export interface APISubscriptionEvent {
     /**
-     * Event type
+     * Event type.
      * 
-     * @remarks We need to use `(string & {})` because we don't know exactly all possible values
+     * @remarks We need to use `(string & {})` because we don't know exactly all possible values.
      */
     event: 'CREATED' | (string & {});
     /**
-     * Event description
+     * Event description.
      */
     description: string;
     /**
