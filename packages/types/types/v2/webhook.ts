@@ -1,11 +1,4 @@
-import type {
-	APIProduct,
-	PaymentFrequency,
-	PaymentMethod,
-	PaymentStatus,
-} from './entities/checkout';
-import type { APICustomer } from './entities/customer';
-import type { APIWithdraw, WithdrawStatus } from './entities/payout';
+import type { APIPayout, PaymentMethod, PaymentStatus, PayoutStatus } from '.';
 
 export interface BaseWebhookEvent<
 	Type extends WebhookEventType,
@@ -30,41 +23,41 @@ export interface BaseWebhookEvent<
 }
 
 /**
- * https://docs.abacatepay.com/pages/webhooks#withdraw-failed
+ * https://docs.abacatepay.com/pages/webhooks#payout-failed
  */
-export type WebhookWithdrawFailedEvent = BaseWebhookEvent<
-	WebhookEventType.WithdrawFailed,
+export type WebhookPayoutFailedEvent = BaseWebhookEvent<
+	WebhookEventType.PayoutFailed,
 	{
 		/**
 		 * Transaction data.
 		 */
-		transaction: Omit<APIWithdraw, 'status'> & {
+		transaction: Omit<APIPayout, 'status'> & {
 			/**
-			 * Status of the withdraw. Always `WithdrawStatus.Cancelled`.
+			 * Status of the payout. Always `PayoutStatus.Cancelled`.
 			 *
-			 * @see {@link WithdrawStatus.Cancelled}
+			 * @see {@link PayoutStatus.Cancelled}
 			 */
-			status: WithdrawStatus.Cancelled;
+			status: PayoutStatus.Cancelled;
 		};
 	}
 >;
 
 /**
- * https://docs.abacatepay.com/pages/webhooks#withdraw-done
+ * https://docs.abacatepay.com/pages/webhooks#payout-done
  */
-export type WebhookWithdrawDoneEvent = BaseWebhookEvent<
-	WebhookEventType.WithdrawDone,
+export type WebhookPayoutDoneEvent = BaseWebhookEvent<
+	WebhookEventType.PayoutDone,
 	{
 		/**
 		 * Transaction data.
 		 */
-		transaction: Omit<APIWithdraw, 'status'> & {
+		transaction: Omit<APIPayout, 'status'> & {
 			/**
-			 * Status of the withdraw. Always `WithdrawStatus.Complete`.
+			 * Status of the payout. Always `PayoutStatus.Complete`.
 			 *
-			 * @see {@link WithdrawStatus.Complete}
+			 * @see {@link PayoutStatus.Complete}
 			 */
-			status: WithdrawStatus.Complete;
+			status: PayoutStatus.Complete;
 		};
 	}
 >;
@@ -124,47 +117,23 @@ export type WebhookBillingPaidEvent = BaseWebhookEvent<
 					 */
 					amount: number;
 					/**
-					 * Counpons used in the billing.
-					 */
-					couponsUsed: string[];
-					/**
-					 * Customer of the charge.
-					 */
-					customer: APICustomer;
-					/**
-					 * Payment frequency.
-					 *
-					 * @see {@link PaymentFrequency}
-					 */
-					frequency: PaymentFrequency;
-					/**
 					 * Unique billing identifier.
 					 */
 					id: string;
 					/**
-					 * Payment methods?
-					 *
-					 * @unstable
+					 * Bill ID in your system.
 					 */
-					kind: PaymentMethod[];
-					/**
-					 * Charge amount in cents.
-					 *
-					 * @unstable
-					 */
-					paidAmount: number;
-					/**
-					 * Products used in the billing.
-					 */
-					products: (Pick<APIProduct, 'quantity' | 'externalId'> & {
-						id: string;
-					})[];
+					externalId: string;
 					/**
 					 * Status of the payment. Always `PaymentStatus.Paid`.
 					 *
 					 * @see {@link PaymentStatus.Paid}
 					 */
 					status: PaymentStatus.Paid;
+					/**
+					 * URL where the user can complete the payment.
+					 */
+					url: string;
 				};
 		  }
 	)
@@ -176,15 +145,15 @@ export type WebhookBillingPaidEvent = BaseWebhookEvent<
  * Any field that contains the tag "@unstable" means that the field is an assumption, it is uncertain (Since AbacatePay does not provide any information about).
  */
 export type WebhookEvent =
-	| WebhookWithdrawDoneEvent
-	| WebhookWithdrawFailedEvent
+	| WebhookPayoutDoneEvent
+	| WebhookPayoutFailedEvent
 	| WebhookBillingPaidEvent;
 
 /**
  * https://docs.abacatepay.com/pages/webhooks
  */
 export enum WebhookEventType {
-	WithdrawFailed = 'withdraw.failed',
-	WithdrawDone = 'withdraw.done',
+	PayoutFailed = 'payout.failed',
+	PayoutDone = 'payout.done',
 	BillingPaid = 'billing.paid',
 }
