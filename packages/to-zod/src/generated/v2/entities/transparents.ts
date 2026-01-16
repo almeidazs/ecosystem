@@ -31,23 +31,7 @@ export const CreatePixQrCodeSchema = z.object({
 		.optional(),
 	metadata: z.record(z.string(), z.unknown()).optional(),
 });
-/*
- *{
-	"data": {
-		"id": "pix_char_123456",
-		"amount": 100,
-		"status": "PENDING",
-		"devMode": true,
-		"brCode": "00020101021226950014br.gov.bcb.pix",
-		"brCodeBase64": "data:image/png;base64,iVBORw0KGgoAAA",
-		"platformFee": 80,
-		"createdAt": "2025-03-24T21:50:20.772Z",
-		"updatedAt": "2025-03-24T21:50:20.772Z",
-		"expiresAt": "2025-03-25T21:50:20.772Z"
-	},
-	"error": null
-}
- * */
+
 export type CreatePixQrCode = z.infer<typeof CreatePixQrCodeSchema>;
 
 export const PixTransactionSchema = PixQrCodeSchema;
@@ -58,3 +42,4 @@ export type PixStaticQrCode = PixQrCode;
 
 export const PixQrCodeResponseSchema = createResponseSchema(PixQrCodeSchema);
 export type PixQrCodeResponse = z.infer<typeof PixQrCodeResponseSchema>;
+

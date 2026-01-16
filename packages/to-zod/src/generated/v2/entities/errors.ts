@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
-export const MissingTokenErrorSchema = z.object({
+export const DefaultErrorSchema = z.object({
+	data: z.object().nullable().optional(),
 	error: z.string(),
 });

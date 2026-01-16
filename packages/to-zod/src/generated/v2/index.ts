@@ -5,6 +5,7 @@ export * from './entities/enums';
 export * from './entities/metadata';
 export * from './entities/mrr';
 export * from './entities/payouts';
+export * from './entities/products';
 export * from './entities/store';
 export * from './entities/webhook';
 
