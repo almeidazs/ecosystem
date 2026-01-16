@@ -1,7 +1,7 @@
 import type {
-	RESTGetCheckQRCodePixStatusQueryParams,
-	RESTGetSearchPayoutQueryParams,
-	RESTPostSimulatePaymentQueryParams,
+	RESTGetListPayoutsQueryParams,
+	RESTGetListSubscriptionsQueryParams,
+	RESTGetProductQueryParams,
 } from './rest';
 
 export const Routes = {
@@ -55,14 +55,14 @@ export const Routes = {
 		/**
 		 * POST - https://api.abacatepay.com/v2/transparents/simulate-payment
 		 */
-		simulatePayment({ id }: RESTPostSimulatePaymentQueryParams) {
+		simulatePayment(id: string) {
 			return `/transparents/simulate-payment?id=${id}` as const;
 		},
 
 		/**
 		 * GET - https://api.abacatepay.com/v2/transparents/check
 		 */
-		checkStatus({ id }: RESTGetCheckQRCodePixStatusQueryParams) {
+		checkStatus(id: string) {
 			return `/transparents/check?id=${id}` as const;
 		},
 	},
@@ -103,14 +103,14 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/payouts/get
 		 */
-		get({ externalId }: RESTGetSearchPayoutQueryParams) {
+		get(externalId: string) {
 			return `/payouts/get?externalId=${externalId}` as const;
 		},
 
 		/**
 		 * GET - https://api.abacatepay.com/v2/payouts/list
 		 */
-		list({ page = 1, limit = 20 } = {} as Record<'page' | 'limit', number>) {
+		list({ page = 1, limit = 20 }: RESTGetListPayoutsQueryParams = {}) {
 			return `/payouts/list?page=${page}&limit=${limit}`;
 		},
 	},
@@ -147,7 +147,7 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/subscriptions/list
 		 */
-		list({ cursor, limit = 20 } = {} as { cursor?: string; limit?: number }) {
+		list({ cursor, limit = 20 }: RESTGetListSubscriptionsQueryParams = {}) {
 			const query = new URLSearchParams({ limit: `${limit}` });
 
 			if (cursor) query.append('cursor', cursor);
@@ -172,8 +172,13 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/products/get
 		 */
-		get({ id, externalId } = {} as Record<'id' | 'externalId', string>) {
-			return `/products/get?${new URLSearchParams({ id, externalId })}`;
+		get({ id, externalId }: RESTGetProductQueryParams = {}) {
+			const query = new URLSearchParams();
+
+			if (id) query.append('id', id);
+			if (externalId) query.append('externalId', externalId);
+
+			return `/products/get?${query}` as const;
 		},
 	},
 } as const;
