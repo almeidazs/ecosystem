@@ -163,11 +163,11 @@ export class REST {
 	}
 
 	private makeHeaders(custom?: Record<string, string>) {
-		const { secret } = this.options;
+		const { secret = process.env.ABACATEPAY_SECRET ?? process.env.ABACATEPAY_API_KEY } = this.options;
 
 		if (!secret)
 			throw new AbacatePayError(
-				'Your secret key is undefined. Use REST.setSecret(secret)',
+				'We could not find any AbacatePay secret, use REST({ secret })',
 			);
 
 		return {
