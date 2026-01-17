@@ -4,7 +4,10 @@ import { StringEnum } from '../../utils';
 /**
  * https://docs.abacatepay.com/pages/payouts/reference#atributos
  */
-export const PayoutStatus = StringEnum([], 'Transaction status.');
+export const PayoutStatus = StringEnum(
+	['PENDING', 'EXPIRED', 'CANCELLED', 'COMPLETE', 'REFUNDED'],
+	'Transaction status.',
+);
 
 export type PayoutStatus = Static<typeof PayoutStatus>;
 
