@@ -7,3 +7,4 @@ export * from './resources/product';
 export * from './resources/store';
 export * from './resources/subscription';
 export * from './rest';
+export * from './webhook';
