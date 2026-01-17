@@ -1,13 +1,59 @@
 {
-  "name": "eslint-plugin",
-  "module": "index.ts",
+  "name": "@abacatepay/eslint-plugin",
+  "version": "0.1.0",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@biomejs/biome": "^2.3.11",
-    "@types/bun": "latest"
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "bun test",
+    "build": "tsc",
+    "types": "rm -rf dist && bun run scripts/version.ts && bun build src/index.ts --outdir dist --target node && bun run types",
+    "prepublishOnly": "bun run build"
   },
   "peerDependencies": {
+    "eslint": "^9.39.2"
+  },
+  "devDependencies": {
+    "@types/eslint": "^9.6.1",
     "typescript": "^5"
+  },
+  "description": "Do not hardcode your AbacatePay secrets with this plugin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/almeidazs/ecosystem"
+  },
+  "bugs": {
+    "url": "https://github.com/almeidazs/abacatepay-eslint/issues"
+  },
+  "homepage": "https://github.com/almeidazs/abacatepay-eslint#readme",
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "security",
+    "secrets",
+    "abacatepay",
+    "lint"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
   }
 }
