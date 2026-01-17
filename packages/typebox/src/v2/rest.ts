@@ -7,6 +7,7 @@ import {
 	APIProduct,
 	APIQRCodePIX,
 	APIStore,
+	APISubscription,
 	CouponDiscountKind,
 	PaymentMethod,
 	PaymentStatus,
@@ -557,3 +558,60 @@ export const RESTGetMRRData = t.Object({
 			'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
 	}),
 });
+
+/**
+ * https://api.abacatepay.com/v2/subscriptions/create
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/create
+ */
+export const RESTPostCreateSubscriptionBody = t.Intersect([
+	t.Object({
+		description: t.Optional(
+			t.String({
+				description: 'Subscription description.',
+			}),
+		),
+	}),
+	t.Pick(APISubscription, [
+		'name',
+		'amount',
+		'method',
+		'frequency',
+		'customerId',
+		'externalId',
+		'retryPolicy',
+	]),
+]);
+
+/**
+ * https://api.abacatepay.com/v2/subscriptions/create
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/create
+ */
+export const RESTPostCreateSubscriptionData = APISubscription;
+
+/**
+ * https://api.abacatepay.com/v2/subscriptions/list
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/list
+ */
+export const RESTGetListSubscriptionsQueryParams = t.Object({
+	cursor: t.Optional(
+		t.String({
+			description: 'Cursor for the pagination.',
+		}),
+	),
+	limit: t.Optional(
+		t.Integer({
+			default: 20,
+			description: 'Number of items per page.',
+		}),
+	),
+});
+
+/**
+ * https://api.abacatepay.com/v2/subscriptions/list
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/list
+ */
+export const RESTGetListSubscriptionsData = t.Array(APISubscription);
