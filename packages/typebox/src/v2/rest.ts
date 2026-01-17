@@ -6,6 +6,7 @@ import {
 	APIPayout,
 	APIProduct,
 	APIQRCodePIX,
+	APIStore,
 	CouponDiscountKind,
 	PaymentMethod,
 	PaymentStatus,
@@ -531,3 +532,28 @@ export const RESTGetProductQueryParams = t.Object({
  * @reference https://docs.abacatepay.com/pages/products/get
  */
 export const RESTGetProductData = APIProduct;
+
+/**
+ * https://api.abacatepay.com/v2/store/get
+ *
+ * @reference https://docs.abacatepay.com/pages/store/get
+ */
+export const RESTGetStoreDetailsData = APIStore;
+
+/**
+ * https://api.abacatepay.com/v2/public-mrr/mrr
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/mrr
+ */
+export const RESTGetMRRData = t.Object({
+	mrr: t.Integer({
+		minimum: 0,
+		description:
+			'Monthly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
+	}),
+	totalActiveSubscriptions: t.Integer({
+		minimum: 0,
+		description:
+			'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
+	}),
+});
