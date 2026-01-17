@@ -1,8 +1,13 @@
 import { type TAnySchema, Type as t } from '@sinclair/typebox';
-import { APICheckout, PaymentMethod } from './resources/checkout';
+import {
+	APICheckout,
+	PaymentMethod,
+	PaymentStatus,
+} from './resources/checkout';
 import { APICoupon, CouponDiscountKind } from './resources/coupon';
 import { APICustomer } from './resources/customer';
 import { APIPayout } from './resources/payout';
+import { APIQRCodePIX } from './resources/pix';
 
 /**
  * Any response returned by the AbacatePay API
@@ -365,3 +370,86 @@ export const RESTGetListPayoutsQueryParams = t.Object({
  * @reference https://docs.abacatepay.com/pages/payouts/list
  */
 export const RESTGetListPayoutsData = t.Array(APIPayout);
+
+/**
+ * https://api.abacatepay.com/v2/transparents/create
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/create
+ */
+export const RESTPostCreateQRCodePixBody = t.Intersect([
+	t.Pick(RESTPostCreateNewCheckoutBody, ['customer', 'metadata']),
+	t.Object({
+		amount: t.Integer({
+			description: 'Charge amount in cents.',
+		}),
+		expiresIn: t.Optional(
+			t.Integer({
+				description: 'Billing expiration time in seconds.',
+			}),
+		),
+		description: t.Optional(
+			t.String({
+				description: 'Message that will appear when paying the PIX.',
+			}),
+		),
+	}),
+]);
+
+/**
+ * https://api.abacatepay.com/v2/transparents/create
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/create
+ */
+export const RESTPostCreateQRCodePixData = APIQRCodePIX;
+
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
+export const RESTPostSimulateQRCodePixPaymentQueryParams = t.Object({
+	id: t.String({
+		description: 'QRCode Pix ID.',
+	}),
+});
+
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
+export const RESTPostSimulateQRCodePixPaymentBody = t.Object({
+	metadata: t.Record(t.String(), t.Any(), {
+		description: 'Optional metadata for the request.',
+	}),
+});
+
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
+export const RESTPostSimulateQRCodePixPaymentData = APIQRCodePIX;
+
+/**
+ * https://api.abacatepay.com/v2/pixQrCode/check
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
+ */
+export const RESTGetCheckQRCodePixStatusQueryParams = t.Object({
+	id: t.String({
+		description: 'QRCode Pix ID.',
+	}),
+});
+
+/**
+ * https://api.abacatepay.com/v2/transparents/check
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/check
+ */
+export const RESTGetCheckQRCodePixStatusData = t.Object({
+	expiresAt: t.Date({
+		description: 'QRCode Pix expiration date.',
+	}),
+	status: PaymentStatus,
+});
