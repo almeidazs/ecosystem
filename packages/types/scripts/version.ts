@@ -14,7 +14,7 @@ await writeFile(
  */
 export const version = '${version}' as const;
 /**
- * Current version of the AbacatePay API
+ * Current version of the AbacatePay API.
  */
 export const API_VERSION = '2' as const;
 `,
