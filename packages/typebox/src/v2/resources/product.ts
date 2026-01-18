@@ -24,7 +24,7 @@ export const APIProduct = t.Object({
 	price: t.Integer({
 		description: 'Product price in cents.',
 	}),
-	currenty: t.String({
+	currency: t.String({
 		description: 'Product currency.',
 	}),
 	status: ProductStatus,

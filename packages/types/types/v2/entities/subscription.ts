@@ -13,7 +13,7 @@ export interface APISubscription {
 	 */
 	amount: number;
 	/**
-	 * Subscription currenty.
+	 * Subscription currency.
 	 */
 	currency: string;
 	/**
