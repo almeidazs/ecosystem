@@ -12,20 +12,20 @@
 			"default": "./dist/index.js"
 		},
 		"./v1": {
-			"import": "./dist/v1/index.js",
-			"types": "./dist/v1/index.d.ts"
+			"types": "./dist/v1/index.d.ts",
+			"import": "./dist/v1/index.js"
 		},
 		"./v1/*": {
-			"import": "./dist/v1/*.js",
-			"types": "./dist/v1/*.d.ts"
+			"types": "./dist/v1/*.d.ts",
+			"import": "./dist/v1/*.js"
 		},
 		"./v2": {
-			"import": "./dist/v2/index.js",
-			"types": "./dist/v2/index.d.ts"
+			"types": "./dist/v2/index.d.ts",
+			"import": "./dist/v2/index.js"
 		},
 		"./v2/*": {
-			"import": "./dist/v2/*.js",
-			"types": "./dist/v2/*.d.ts"
+			"types": "./dist/v2/*.d.ts",
+			"import": "./dist/v2/*.js"
 		},
 		"./v*": null
 	},
@@ -62,7 +62,7 @@
 	"keywords": [
 		"abacatepay",
 		"payments",
-		"typebox",
+		"zod",
 		"api",
 		"typescript"
 	],
@@ -75,7 +75,7 @@
 		"@commitlint/config-conventional": "^18.0.0"
 	},
 	"peerDependencies": {
-		"zod": "^4",
+		"zod": "^3",
 		"typescript": "^5"
 	}
 }
