@@ -23,6 +23,7 @@ import type {
 	RESTGetProductQueryParams,
 	RESTGetRevenueByPeriodData,
 	RESTGetRevenueByPeriodQueryParams,
+	RESTGetSearchPayoutData,
 	RESTGetStoreDetailsData,
 	RESTPatchToggleCouponStatusData,
 	RESTPostCreateCouponBody,
@@ -68,10 +69,9 @@ export const AbacatePay = ({ secret, rest }: AbacatePayOptions) => {
 				);
 			},
 			list(query?: RESTGetListCustomersQueryParams) {
-				return client.get<RESTGetListCustomersData>(Routes.customers.list, {
-					// @ts-expect-error
-					query,
-				});
+				return client.get<RESTGetListCustomersData>(
+					Routes.customers.list(query),
+				);
 			},
 		},
 		checkouts: {
@@ -122,10 +122,7 @@ export const AbacatePay = ({ secret, rest }: AbacatePayOptions) => {
 				return client.get<RESTGetCouponData>(Routes.coupons.get(id));
 			},
 			list(query?: RESTGetListCouponsQueryParams) {
-				return client.get<RESTGetListCouponsData>(Routes.coupons.list, {
-					// @ts-expect-error
-					query,
-				});
+				return client.get<RESTGetListCouponsData>(Routes.coupons.list(query));
 			},
 			toggleStatus(id: string) {
 				return client.patch<RESTPatchToggleCouponStatusData>(
@@ -160,8 +157,7 @@ export const AbacatePay = ({ secret, rest }: AbacatePayOptions) => {
 				);
 			},
 			get(id: string) {
-				// TODO: Add type here
-				return client.get(Routes.payouts.get(id));
+				return client.get<RESTGetSearchPayoutData>(Routes.payouts.get(id));
 			},
 			list(query?: RESTGetListPayoutsQueryParams) {
 				return client.get<RESTGetListPayoutsData>(Routes.payouts.list(query));
@@ -190,8 +186,6 @@ export const AbacatePay = ({ secret, rest }: AbacatePayOptions) => {
 				return client.get<RESTGetProductData>(Routes.products.get(query));
 			},
 			list(query?: RESTGetListProductsQueryParams) {
-				// TODO: Fix the type
-				// @ts-expect-error
 				return client.get<RESTGetListProductsData>(Routes.products.list(query));
 			},
 		},
