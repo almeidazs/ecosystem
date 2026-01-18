@@ -30,7 +30,9 @@ export const APICheckout = z.object({
 		.describe('Total amount to be paid in cents.'),
 	paidAmount: z
 		.union([z.null(), z.number().int().min(100)])
-		.describe('Amount already paid in cents.`null` if it has not yet been paid.'),
+		.describe(
+			'Amount already paid in cents.`null` if it has not yet been paid.',
+		),
 	externalId: z
 		.union([z.null(), z.string()])
 		.describe('Bill ID in your system.'),
@@ -63,9 +65,7 @@ export const APICheckout = z.object({
 		.describe(
 			'URL that the customer will be redirected to when making payment.',
 		),
-	receiptUrl: z
-		.union([z.null(), z.url()])
-		.describe('Payment receipt URL.'),
+	receiptUrl: z.union([z.null(), z.url()]).describe('Payment receipt URL.'),
 	coupons: z
 		.array(z.string())
 		.max(50)

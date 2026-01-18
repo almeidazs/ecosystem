@@ -1,18 +1,27 @@
 {
-  "name": "monorepo",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "@biomejs/biome": "^2.3.11",
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
-    "@types/bun": "latest",
-    "typescript": "^5.9.3"
-  },
-  "scripts": {
-    "test": "bun test",
-    "biome:check": "biome check ."
-  }
+	"name": "abacatepay",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"packages/*"
+	],
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.11",
+		"@commitlint/cli": "^20.3.1",
+		"@commitlint/config-conventional": "^20.3.1",
+		"@types/bun": "latest",
+		"typescript": "^5.9.3"
+	},
+	"scripts": {
+		"biome:format": "biome format .",
+		"biome:lint": "biome check .",
+		"biome:check": "biome check --write .",
+		"build": "bun run --filter './packages/*' build",
+		"typecheck": "tsc --noEmit",
+		"test": "bun run --filter './packages/*' test"
+	},
+	"engines": {
+		"bun": ">=1.1.0"
+	},
+	"license": "Apache-2.0"
 }
