@@ -45,5 +45,9 @@
 		"@biomejs/biome": "^2.3.11",
 		"typescript": "^5.0.0"
 	},
-	"description": "An ergonomic SDK for integration with AbacatePay"
+	"description": "An ergonomic SDK for integration with AbacatePay",
+	"dependencies": {
+		"@abacatepay/rest": "workspace:*",
+		"@abacatepay/types": "workspace:*"
+	}
 }
