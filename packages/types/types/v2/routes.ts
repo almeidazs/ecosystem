@@ -1,5 +1,8 @@
 import type {
+	RESTGetListCouponsQueryParams,
+	RESTGetListCustomersQueryParams,
 	RESTGetListPayoutsQueryParams,
+	RESTGetListProductsQueryParams,
 	RESTGetListSubscriptionsQueryParams,
 	RESTGetProductQueryParams,
 } from './rest';
@@ -14,7 +17,9 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/customers/list
 		 */
-		list: '/customers/list',
+		list({ page = 1, limit = 20 }: RESTGetListCustomersQueryParams = {}) {
+			return `/customers/list?page=${page}&limit=${limit}` as const;
+		},
 
 		/**
 		 * GET - https://api.abacatepay.com/v2/customers/get
@@ -75,7 +80,9 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/coupons/list
 		 */
-		list: '/coupons/list',
+		list({ page = 1, limit = 20 }: RESTGetListCouponsQueryParams = {}) {
+			return `/coupons/list?page=${page}&limit=${limit}` as const;
+		},
 
 		/**
 		 * GET - https://api.abacatepay.com/v2/coupons/get
@@ -165,7 +172,7 @@ export const Routes = {
 		/**
 		 * GET - https://api.abacatepay.com/v2/products/list
 		 */
-		list({ page = 1, limit = 20 } = {} as Record<'page' | 'limit', number>) {
+		list({ page = 1, limit = 20 }: RESTGetListProductsQueryParams = {}) {
 			return `/products/list?page=${page}&limit=${limit}` as const;
 		},
 
