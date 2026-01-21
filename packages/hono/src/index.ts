@@ -1,11 +1,13 @@
 import { WebhookEvent } from '@abacatepay/zod/v2';
 import type { Context } from 'hono';
+import { AbacatePayHonoError } from './errors';
 import type { WebhookOptions } from './types';
 import { verifyWebhookSignature } from './utils';
 
 const BAD_REQUEST_STATUS_CODE = 400;
 const UNAUTHORIZED_STATUS_CODE = 401;
 
+export { AbacatePayHonoError } from './errors';
 export { version } from './version';
 
 export const Webhooks = ({
@@ -16,6 +18,14 @@ export const Webhooks = ({
 	secret = process.env.ABACATEPAY_WEBHOOK_SECRET ??
 		process.env.ABACATE_PAY_WEBHOOK_SECRET,
 }: WebhookOptions) => {
+	if (!secret)
+		throw new AbacatePayHonoError(
+			'Webhook secret is missing. Set ABACATEPAY_WEBHOOK_SECRET.',
+			{
+				code: 'WEBHOOK_SECRET_MISSING',
+			},
+		);
+
 	return async (ctx: Context) => {
 		const webhookSecret = ctx.req.query('webhookSecret');
 
