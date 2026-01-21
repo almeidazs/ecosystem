@@ -37,10 +37,25 @@ export type APIResponse<Schema extends TAnySchema> = Static<
 	ReturnType<typeof APIResponse<Schema>>
 >;
 
+/**
+ * https://api.abacatepay.com/v1/customer/create
+ *
+ * @reference https://docs.abacatepay.com/pages/client/create
+ */
 export const RESTPostCreateCustomerBody = t.Pick(APICustomer, ['metadata']);
 
+/**
+ * https://api.abacatepay.com/v1/customer/create
+ *
+ * @reference https://docs.abacatepay.com/pages/client/create
+ */
 export const RESTPostCreateCustomerData = APIResponse(APICustomer);
 
+/**
+ * https://api.abacatepay.com/v1/billing/create
+ *
+ * @reference https://docs.abacatepay.com/pages/payment/create
+ */
 export const RESTPostCreateNewChargeBody = t.Object({
 	methods: t.Array(PaymentMethod, {
 		description:
@@ -92,8 +107,18 @@ export const RESTPostCreateNewChargeBody = t.Object({
 	),
 });
 
+/**
+ * https://api.abacatepay.com/v1/billing/create
+ *
+ * @reference https://docs.abacatepay.com/pages/payment/create
+ */
 export const RESTPostCreateNewChargeData = APIResponse(APICharge);
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/create
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/create
+ */
 export const RESTPostCreateQRCodePixBody = t.Intersect([
 	t.Pick(RESTPostCreateNewChargeBody, ['customer', 'metadata']),
 	t.Object({
@@ -113,22 +138,47 @@ export const RESTPostCreateQRCodePixBody = t.Intersect([
 	}),
 ]);
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/create
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/create
+ */
 export const RESTPostCreateQRCodePixData = APIResponse(APIQRCodePIX);
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
+ */
 export const RESTPostSimulatePaymentQueryParams = t.Object({
 	id: t.String({
 		description: 'QRCode Pix ID.',
 	}),
 });
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
+ */
 export const RESTPostSimulatePaymentData = APIResponse(APIQRCodePIX);
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/check
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
+ */
 export const RESTGetCheckQRCodePixStatusQueryParams = t.Object({
 	id: t.String({
 		description: 'QRCode Pix ID.',
 	}),
 });
 
+/**
+ * https://api.abacatepay.com/v1/pixQrCode/check
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
+ */
 export const RESTGetCheckQRCodePixStatusData = APIResponse(
 	t.Object({
 		expiresAt: t.Date({
@@ -138,10 +188,25 @@ export const RESTGetCheckQRCodePixStatusData = APIResponse(
 	}),
 );
 
+/**
+ * https://api.abacatepay.com/v1/billing/list
+ *
+ * @reference https://docs.abacatepay.com/pages/payment/list
+ */
 export const RESTGetListBillingsData = APIResponse(t.Array(APICharge));
 
+/**
+ * https://api.abacatepay.com/v1/customer/list
+ *
+ * @reference https://docs.abacatepay.com/pages/client/list
+ */
 export const RESTGetListCustomersData = APIResponse(t.Array(APICustomer));
 
+/**
+ * https://api.abacatepay.com/v1/coupon/create
+ *
+ * @reference https://docs.abacatepay.com/pages/coupon/create
+ */
 export const RESTPostCreateCouponBody = t.Object({
 	data: t.Object(
 		{
@@ -178,8 +243,18 @@ export const RESTPostCreateCouponBody = t.Object({
 	),
 });
 
+/**
+ * https://api.abacatepay.com/v1/coupon/create
+ *
+ * @reference https://docs.abacatepay.com/pages/coupon/create
+ */
 export const RESTPostCreateCouponData = APIResponse(APICoupon);
 
+/**
+ * https://api.abacatepay.com/v1/withdraw/create
+ *
+ * @reference https://docs.abacatepay.com/pages/withdraw/create
+ */
 export const RESTPostCreateNewWithdrawBody = t.Object({
 	externalId: t.String({
 		description: 'Unique identifier of the withdrawal in your system.',
@@ -212,14 +287,29 @@ export const RESTPostCreateNewWithdrawBody = t.Object({
 	),
 });
 
+/**
+ * https://api.abacatepay.com/v1/withdraw/create
+ *
+ * @reference https://docs.abacatepay.com/pages/withdraw/create
+ */
 export const RESTPostCreateNewWithdrawData = APIResponse(APIWithdraw);
 
+/**
+ * https://api.abacatepay.com/v1/withdraw/get
+ *
+ * @reference https://docs.abacatepay.com/pages/withdraw/get
+ */
 export const RESTGetSearchWithdrawQueryParams = t.Object({
 	externalId: t.String({
 		description: 'Unique identifier of the withdrawal in your system.',
 	}),
 });
 
+/**
+ * https://api.abacatepay.com/v1/public-mrr/revenue
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/list
+ */
 export const RESTGetRevenueByPeriodQueryParams = t.Object({
 	startDate: t.String({
 		description: 'Period start date (YYYY-MM-DD format).',
@@ -229,6 +319,11 @@ export const RESTGetRevenueByPeriodQueryParams = t.Object({
 	}),
 });
 
+/**
+ * https://api.abacatepay.com/v1/public-mrr/merchant-info
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/get
+ */
 export const RESTGetMerchantData = APIResponse(
 	t.Object({
 		name: t.String({
@@ -244,6 +339,11 @@ export const RESTGetMerchantData = APIResponse(
 	}),
 );
 
+/**
+ * https://api.abacatepay.com/v1/public-mrr/mrr
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/mrr
+ */
 export const RESTGetMRRData = APIResponse(
 	t.Object({
 		mrr: t.Integer({
@@ -257,8 +357,23 @@ export const RESTGetMRRData = APIResponse(
 	}),
 );
 
+/**
+ * https://api.abacatepay.com/v1/store/get
+ *
+ * @reference https://docs.abacatepay.com/pages/store/get
+ */
 export const RESTGetStoreDetailsData = APIResponse(APIStore);
 
+/**
+ * https://api.abacatepay.com/v1/withdraw/list
+ *
+ * @reference https://docs.abacatepay.com/pages/withdraw/list
+ */
 export const RESTGetListWithdrawsData = APIResponse(t.Array(APIWithdraw));
 
+/**
+ * https://api.abacatepay.com/v1/coupon/list
+ *
+ * @reference https://docs.abacatepay.com/pages/coupon/list
+ */
 export const RESTGetListCouponsData = APIResponse(t.Array(APICoupon));
