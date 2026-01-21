@@ -22,6 +22,10 @@ export type APIResponse<Data> =
 			 */
 			data: Data;
 			error: null;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: true;
 	  }
 	| {
 			data: null;
@@ -29,6 +33,10 @@ export type APIResponse<Data> =
 			 * Error message returned from the API.
 			 */
 			error: string;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: false;
 	  };
 
 /**
@@ -41,6 +49,10 @@ export type APIResponseWithPagination<Data> =
 			 */
 			data: Data;
 			error: null;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: true;
 			/**
 			 * Pagination info.
 			 */
@@ -69,6 +81,10 @@ export type APIResponseWithPagination<Data> =
 			 * Error message returned from the API.
 			 */
 			error: string;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: false;
 	  };
 
 /**
@@ -81,6 +97,10 @@ export type APIResponseWithCursorBasedPagination<Data> =
 			 */
 			data: Data;
 			error: null;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: true;
 			/**
 			 * Pagination info.
 			 */
@@ -109,6 +129,10 @@ export type APIResponseWithCursorBasedPagination<Data> =
 			 * Error message returned from the API.
 			 */
 			error: string;
+			/**
+			 * Whether the request was successful or not.
+			 */
+			success: false;
 	  };
 
 /**
