@@ -44,12 +44,20 @@ export type APIResponse<Schema extends TAnySchema> = Static<
  */
 export const RESTPostCreateCustomerBody = t.Pick(APICustomer, ['metadata']);
 
+export type RESTPostCreateCustomerBody = Static<
+	typeof RESTPostCreateCustomerBody
+>;
+
 /**
  * https://api.abacatepay.com/v1/customer/create
  *
  * @reference https://docs.abacatepay.com/pages/client/create
  */
 export const RESTPostCreateCustomerData = APIResponse(APICustomer);
+
+export type RESTPostCreateCustomerData = Static<
+	typeof RESTPostCreateCustomerData
+>;
 
 /**
  * https://api.abacatepay.com/v1/billing/create
@@ -107,12 +115,20 @@ export const RESTPostCreateNewChargeBody = t.Object({
 	),
 });
 
+export type RESTPostCreateNewChargeBody = Static<
+	typeof RESTPostCreateNewChargeBody
+>;
+
 /**
  * https://api.abacatepay.com/v1/billing/create
  *
  * @reference https://docs.abacatepay.com/pages/payment/create
  */
 export const RESTPostCreateNewChargeData = APIResponse(APICharge);
+
+export type RESTPostCreateNewChargeData = Static<
+	typeof RESTPostCreateNewChargeData
+>;
 
 /**
  * https://api.abacatepay.com/v1/pixQrCode/create
@@ -138,12 +154,20 @@ export const RESTPostCreateQRCodePixBody = t.Intersect([
 	}),
 ]);
 
+export type RESTPostCreateQRCodePixBody = Static<
+	typeof RESTPostCreateQRCodePixBody
+>;
+
 /**
  * https://api.abacatepay.com/v1/pixQrCode/create
  *
  * @reference https://docs.abacatepay.com/pages/pix-qrcode/create
  */
 export const RESTPostCreateQRCodePixData = APIResponse(APIQRCodePIX);
+
+export type RESTPostCreateQRCodePixData = Static<
+	typeof RESTPostCreateQRCodePixData
+>;
 
 /**
  * https://api.abacatepay.com/v1/pixQrCode/simulate-payment
@@ -156,12 +180,20 @@ export const RESTPostSimulatePaymentQueryParams = t.Object({
 	}),
 });
 
+export type RESTPostSimulatePaymentQueryParams = Static<
+	typeof RESTPostSimulatePaymentQueryParams
+>;
+
 /**
  * https://api.abacatepay.com/v1/pixQrCode/simulate-payment
  *
  * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
  */
 export const RESTPostSimulatePaymentData = APIResponse(APIQRCodePIX);
+
+export type RESTPostSimulatePaymentData = Static<
+	typeof RESTPostSimulatePaymentData
+>;
 
 /**
  * https://api.abacatepay.com/v1/pixQrCode/check
@@ -173,6 +205,10 @@ export const RESTGetCheckQRCodePixStatusQueryParams = t.Object({
 		description: 'QRCode Pix ID.',
 	}),
 });
+
+export type RESTGetCheckQRCodePixStatusQueryParams = Static<
+	typeof RESTGetCheckQRCodePixStatusQueryParams
+>;
 
 /**
  * https://api.abacatepay.com/v1/pixQrCode/check
@@ -188,6 +224,10 @@ export const RESTGetCheckQRCodePixStatusData = APIResponse(
 	}),
 );
 
+export type RESTGetCheckQRCodePixStatusData = Static<
+	typeof RESTGetCheckQRCodePixStatusData
+>;
+
 /**
  * https://api.abacatepay.com/v1/billing/list
  *
@@ -195,12 +235,16 @@ export const RESTGetCheckQRCodePixStatusData = APIResponse(
  */
 export const RESTGetListBillingsData = APIResponse(t.Array(APICharge));
 
+export type RESTGetListBillingsData = Static<typeof RESTGetListBillingsData>;
+
 /**
  * https://api.abacatepay.com/v1/customer/list
  *
  * @reference https://docs.abacatepay.com/pages/client/list
  */
 export const RESTGetListCustomersData = APIResponse(t.Array(APICustomer));
+
+export type RESTGetListCustomersData = Static<typeof RESTGetListCustomersData>;
 
 /**
  * https://api.abacatepay.com/v1/coupon/create
@@ -243,12 +287,16 @@ export const RESTPostCreateCouponBody = t.Object({
 	),
 });
 
+export type RESTPostCreateCouponBody = Static<typeof RESTPostCreateCouponBody>;
+
 /**
  * https://api.abacatepay.com/v1/coupon/create
  *
  * @reference https://docs.abacatepay.com/pages/coupon/create
  */
 export const RESTPostCreateCouponData = APIResponse(APICoupon);
+
+export type RESTPostCreateCouponData = Static<typeof RESTPostCreateCouponData>;
 
 /**
  * https://api.abacatepay.com/v1/withdraw/create
@@ -287,12 +335,20 @@ export const RESTPostCreateNewWithdrawBody = t.Object({
 	),
 });
 
+export type RESTPostCreateNewWithdrawBody = Static<
+	typeof RESTPostCreateNewWithdrawBody
+>;
+
 /**
  * https://api.abacatepay.com/v1/withdraw/create
  *
  * @reference https://docs.abacatepay.com/pages/withdraw/create
  */
 export const RESTPostCreateNewWithdrawData = APIResponse(APIWithdraw);
+
+export type RESTPostCreateNewWithdrawData = Static<
+	typeof RESTPostCreateNewWithdrawData
+>;
 
 /**
  * https://api.abacatepay.com/v1/withdraw/get
@@ -304,6 +360,10 @@ export const RESTGetSearchWithdrawQueryParams = t.Object({
 		description: 'Unique identifier of the withdrawal in your system.',
 	}),
 });
+
+export type RESTGetSearchWithdrawQueryParams = Static<
+	typeof RESTGetSearchWithdrawQueryParams
+>;
 
 /**
  * https://api.abacatepay.com/v1/public-mrr/revenue
@@ -318,6 +378,10 @@ export const RESTGetRevenueByPeriodQueryParams = t.Object({
 		description: 'Period end date (YYYY-MM-DD format).',
 	}),
 });
+
+export type RESTGetRevenueByPeriodQueryParams = Static<
+	typeof RESTGetRevenueByPeriodQueryParams
+>;
 
 /**
  * https://api.abacatepay.com/v1/public-mrr/merchant-info
@@ -339,6 +403,8 @@ export const RESTGetMerchantData = APIResponse(
 	}),
 );
 
+export type RESTGetMerchantData = Static<typeof RESTGetMerchantData>;
+
 /**
  * https://api.abacatepay.com/v1/public-mrr/mrr
  *
@@ -357,12 +423,16 @@ export const RESTGetMRRData = APIResponse(
 	}),
 );
 
+export type RESTGetMRRData = Static<typeof RESTGetMRRData>;
+
 /**
  * https://api.abacatepay.com/v1/store/get
  *
  * @reference https://docs.abacatepay.com/pages/store/get
  */
 export const RESTGetStoreDetailsData = APIResponse(APIStore);
+
+export type RESTGetStoreDetailsData = Static<typeof RESTGetStoreDetailsData>;
 
 /**
  * https://api.abacatepay.com/v1/withdraw/list
@@ -371,9 +441,13 @@ export const RESTGetStoreDetailsData = APIResponse(APIStore);
  */
 export const RESTGetListWithdrawsData = APIResponse(t.Array(APIWithdraw));
 
+export type RESTGetListWithdrawsData = Static<typeof RESTGetListWithdrawsData>;
+
 /**
  * https://api.abacatepay.com/v1/coupon/list
  *
  * @reference https://docs.abacatepay.com/pages/coupon/list
  */
 export const RESTGetListCouponsData = APIResponse(t.Array(APICoupon));
+
+export type RESTGetListCouponsData = Static<typeof RESTGetListCouponsData>;
