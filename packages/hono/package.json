@@ -1,0 +1,54 @@
+{
+	"name": "@abacatepay/hono",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/almeidazs/ecosystem"
+	},
+	"main": "./dist/index.js",
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.11",
+		"typescript": "^5.0.0"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"description": "Checkouts and Webhooks made simple with AbacatePay and Hono.",
+	"engines": {
+		"node": ">=18",
+		"bun": ">=1.0.0"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"abacatepay",
+		"payments",
+		"hono",
+		"api",
+		"webhooks"
+	],
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"test": "bun test",
+		"build": "rm -rf dist && bun run scripts/version.ts && tsc",
+		"types": "bunx tsc --emitDeclarationOnly",
+		"prepublishOnly": "bun run build"
+	},
+	"sideEffects": false,
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"peerDependencies": {
+		"hono": "^4.11.4"
+	},
+	"dependencies": {
+		"@abacatepay/zod": "^1.0.0"
+	}
+}
