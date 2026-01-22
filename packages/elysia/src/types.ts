@@ -12,7 +12,7 @@ export interface WebhookOptions {
 	/**
 	 * The webhook secret to use in the validation
 	 */
-	secret?: string;
+	secret: string;
 	/**
 	 * Catch-all function for all Webhook events
 	 */
