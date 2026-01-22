@@ -20,6 +20,7 @@ Todos os pacotes vivem em `packages/*` e são publicados como `@abacatepay/<nome
 - [`@abacatepay/elysia`](https://www.npmjs.com/package/@abacatepay/elysia) - Integração oficial para webhooks da AbacatePay dentro do Elysia.
 - [`@abacatepay/hono`](https://www.npmjs.com/package/@abacatepay/hono) - Integração oficial para webhooks da AbacatePay dentro do Hono.
 - [`@abacatepay/fastify`](https://www.npmjs.com/package/@abacatepay/fastify) - Integração oficial para webhooks da AbacatePay dentro do Fastify.
+- [`@abacatepay/express`](https://www.npmjs.com/package/@abacatepay/express) - Integração oficial para webhooks da AbacatePay dentro do Express.
 - [`@abacatepay/typebox`](https://www.npmjs.com/package/@abacatepay/typebox) - Schemas oficiais da API AbacatePay em TypeBox, com validação runtime, e suporte a OpenAPI.
 - [`@abacatepay/zod`](https://www.npmjs.com/package/@abacatepay/zod) - Schemas oficiais da API AbacatePay em Zod, com validação runtime, e suporte a OpenAPI.
 - [`@abacatepay/eslint-plugin`](https://www.npmjs.com/package/@abacatepay/eslint-plugin) - Um plugin ESLint para regras relacionada a AbacatePay.
