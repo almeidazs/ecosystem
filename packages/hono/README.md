@@ -51,8 +51,6 @@ app.post(
 
 <div align="center">
 
-O [`@abacatepay/hono`](https://www.npmjs.com/package/@abacatepay/hono) busca automáticamente por `ABACATEPAY_WEBHOOK_SECRET` ou `ABACATE_PAY_WEBHOOK_SECRET` nas variáveis de ambiente para usar caso o *secret* não seja fornecido.
-
 ## Segurança por padrão
 </div>
 
