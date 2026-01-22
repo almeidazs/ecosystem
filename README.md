@@ -18,6 +18,7 @@ Todos os pacotes vivem em `packages/*` e são publicados como `@abacatepay/<nome
 - [`@abacatepay/rest`](https://www.npmjs.com/package/@abacatepay/rest) — Client REST completo e tipado para a API da AbacatePay.
 - [`@abacatepay/types`](https://www.npmjs.com/package/@abacatepay/types) - Tipagens e helpers completos da API da AbacatePay (Com versionamento).
 - [`@abacatepay/elysia`](https://www.npmjs.com/package/@abacatepay/elysia) - Integração oficial para webhooks da AbacatePay dentro do Elysia.
+- [`@abacatepay/supabase`](https://www.npmjs.com/package/@abacatepay/supabase) - Integração oficial para webhooks da AbacatePay dentro do Supabase.
 - [`@abacatepay/hono`](https://www.npmjs.com/package/@abacatepay/hono) - Integração oficial para webhooks da AbacatePay dentro do Hono.
 - [`@abacatepay/fastify`](https://www.npmjs.com/package/@abacatepay/fastify) - Integração oficial para webhooks da AbacatePay dentro do Fastify.
 - [`@abacatepay/express`](https://www.npmjs.com/package/@abacatepay/express) - Integração oficial para webhooks da AbacatePay dentro do Express.
