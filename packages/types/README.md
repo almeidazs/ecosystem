@@ -2,40 +2,45 @@
 
 ## AbacatePay API Types
 
-Tipagens oficiais e helpers modernos para integrar com a API da AbacatePay.
+O [@abacatepay/types](https://www.npmjs.com/package/@abacatepay/types) fornece **tipagens oficiais** e **helpers modernos** para trabalhar com a API da AbacatePay de forma **segura**, **previsível** e **alinhada** à documentação oficial.
+
+O pacote é **TypeScript-first** e serve como base para integrações diretas via **fetch**, **SDKs** internos, **CLIs** e validações em **aplicações** backend.
 
 <img src="https://res.cloudinary.com/dkok1obj5/image/upload/v1767631413/avo_clhmaf.png" width="100%" alt="AbacatePay Open Source"/>
 
 ## Instalação
 
-Use com o seu *package manager* favorito
+Use o *package manager* da sua preferência:
 
 </div>
 
 ```bash
 bun add @abacatepay/types
+# ou
 pnpm add @abacatepay/types
+# ou
 npm install @abacatepay/types
 ```
 
 <div align="center">
 
-## Como a AbacatePay API Types documenta
+## Versionamento dos Tipos
 
-Antes de tudo, você deve específicar a versão da API que você deseja importar os tipos. Coloque `/v*` no final da importação, sendo `*` a versão que deseja usar:
+Antes de tudo, você deve especificar a versão da API que deseja usar, adicionando **/v*** na importação:
 
 </div>
 
 ```ts
-import { APICustomer } from '@abacatepay/types/v1'
+import { APICustomer } from '@abacatepay/types/v2';
 ```
 
-
-<p align="center">Para tipos globais como <code>API_BASE_URL</code>, <code>API_VERSION</code>, <code>version</code> e <code>Routes</code>, apenas import normalmente sem a versão.</p>
+<p align="center">Tipos e constantes globais não são versionados e devem ser importados diretamente sem a versão:</p>
 
 ```ts
-import { version } from '@abacatepay/types'
+import { version, API_BASE_URL, API_VERSION } from '@abacatepay/types';
 ```
+
+## Como a AbacatePay API Types documenta
 
 - Prefixo `API*`
 Representa estruturas gerais da API (Objetos retornados, modelos internos etc.).
@@ -69,36 +74,33 @@ São campos que não têm definição formal na documentação, mas cujo tipo fo
 
 ```ts
 import {
-	API_BASE,
-	API_VERSION,
-	type APICoupon,
-	type RESTPostCreateCouponBody,
-	Routes,
-} from '@abacatepay/types/v1';
+    Routes,
+    type APICoupon,
+    type RESTPostCreateCouponBody,
+} from '@abacatepay/types/v2';
+import { REST } from '@abacatepay/rest';
+
+const client = new REST({ secret });
 
 async function createCoupon(body: RESTPostCreateCouponBody) {
-	const path = `${API_BASE_URL}/${API_VERSION}/${Routes.coupon.create}`;
+    const data = await client.post<APICoupon>(Routes.coupons.create, { body });
 
-	const response = await fetch(path, {
-		method: 'POST',
-		body: JSON.stringify(body),
-	});
-
-	const data: APICoupon = await response.json();
-
-	return data;
+    return data;
 }
 ```
 
 <p align="center"><strong>Crie um servidor e escute eventos de Webhooks do Aabacate</strong></p>
 
 ```ts
-import { type WebhookEvent, WebhookEventType } from '@abacatepay/types/v1';
+import { WebhookEvent } from '@abacatepay/zod/v2';
+import { WebhookEventType } from '@abacatepay/types/v2';
 
 Bun.serve({
     routes: {
         async '/webhooks/abacate'(request) {
-            const { data, event }: WebhookEvent = await request.json();
+            const raw = await request.json();
+            
+            const { data, event } = WebhookEvent.parse(raw);
 
             switch (event) {
                 case WebhookEventType.BillingPaid:
