@@ -6,7 +6,7 @@ import { StringEnum } from '../../utils';
  */
 export const PayoutStatus = StringEnum(
 	['PENDING', 'EXPIRED', 'CANCELLED', 'COMPLETE', 'REFUNDED'],
-	'Transaction status.',
+	{ examples: ['PENDING'], description: 'Transaction status.' },
 );
 
 /**
@@ -19,29 +19,37 @@ export type PayoutStatus = Static<typeof PayoutStatus>;
  */
 export const APIPayout = t.Object({
 	id: t.String({
+		examples: ['txn_1234567890abcdef'],
 		description: 'Unique transaction identifier.',
 	}),
 	status: PayoutStatus,
 	devMode: t.Boolean({
+		examples: [false],
 		description:
 			'Indicates whether the transaction was created in a testing environment.',
 	}),
 	receiptUrl: t.Union([t.Null(), t.String({ format: 'uri' })], {
+		examples: [null],
 		description: 'Transaction proof URL.',
 	}),
 	amount: t.Integer({
+		examples: [1000],
 		description: 'Payout value in cents.',
 	}),
 	platformFee: t.Integer({
+		examples: [80],
 		description: 'Platform fee in cents.',
 	}),
 	externalId: t.String({
+		examples: ['order_9876543210fedcba'],
 		description: 'External transaction identifier.',
 	}),
 	createdAt: t.Date({
+		examples: ['2025-01-01T12:00:00Z'],
 		description: 'Transaction creation date.',
 	}),
 	updatedAt: t.Date({
+		examples: ['2025-01-02T12:00:00Z'],
 		description: 'Transaction update date.',
 	}),
 });

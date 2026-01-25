@@ -7,7 +7,7 @@ import { APIPayout, PaymentMethod } from '.';
  */
 export const WebhookEventType = StringEnum(
 	['payout.failed', 'payout.done', 'billing.paid'],
-	'Webhook event type.',
+	{ examples: ['payout.failed'], description: 'Webhook event type.' },
 );
 
 /**
@@ -25,12 +25,15 @@ export const BaseWebhookEvent = <
 	t.Object({
 		data: schema,
 		id: t.String({
+			examples: ['log_1234567890abcdef'],
 			description: 'Unique identifier for the webhook.',
 		}),
 		event: t.Literal(type, {
+			examples: [type],
 			description: 'This field identifies the type of event received.',
 		}),
 		devMode: t.Boolean({
+			examples: [false],
 			description:
 				'Indicates whether the event occurred in the development environment.',
 		}),
@@ -47,6 +50,7 @@ export const WebhookPayoutFailedEvent = BaseWebhookEvent(
 				t.Omit(APIPayout, ['status']),
 				t.Object({
 					status: t.Literal('CANCELLED', {
+						examples: ['CANCELLED'],
 						description: 'Status of the payout. Always `CANCELLED`.',
 					}),
 				}),
@@ -74,6 +78,7 @@ export const WebhookPayoutDoneEvent = BaseWebhookEvent(
 				t.Omit(APIPayout, ['status']),
 				t.Object({
 					status: t.Literal('COMPLETE', {
+						examples: ['COMPLETE'],
 						description: 'Status of the payout. Always `COMPLETE`.',
 					}),
 				}),
@@ -101,9 +106,11 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				{
 					payment: t.Object({
 						amount: t.Integer({
+							examples: [4000],
 							description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
 						}),
 						fee: t.Integer({
+							examples: [200],
 							description: 'The fee charged by AbacatePay.',
 						}),
 						method: PaymentMethod,
@@ -117,15 +124,19 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				t.Object({
 					pixQrCode: t.Object({
 						amount: t.Integer({
+							examples: [4000],
 							description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
 						}),
 						id: t.String({
+							examples: ['bill_1234567890abcdef'],
 							description: 'Unique billing identifier.',
 						}),
 						kind: t.Literal('PIX', {
+							examples: ['PIX'],
 							description: 'Kind of the payment',
 						}),
 						status: t.Literal('PAID', {
+							examples: ['PAID'],
 							description: 'Billing status, can only be `PAID` here',
 						}),
 					}),
@@ -133,19 +144,24 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				t.Object({
 					billing: t.Object({
 						amount: t.Integer({
+							examples: [4000],
 							description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
 						}),
 						id: t.String({
+							examples: ['bill_1234567890abcdef'],
 							description: 'Unique billing identifier.',
 						}),
 						externalId: t.String({
+							examples: ['my-invoice-0001'],
 							description: 'Bill ID in your system.',
 						}),
 						status: t.Literal('PAID', {
+							examples: ['PAID'],
 							description: 'Status of the payment. Always `PAID`.',
 						}),
 						url: t.String({
 							format: 'uri',
+							examples: ['https://abacatepay.com/pay/bill_1234567890abcdef'],
 							description: 'URL where the user can complete the payment.',
 						}),
 					}),

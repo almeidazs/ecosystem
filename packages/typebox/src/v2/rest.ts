@@ -21,18 +21,22 @@ export const APIResponse = <Schema extends TAnySchema>(schema: Schema) =>
 		t.Object({
 			data: schema,
 			error: t.Null({
+				examples: [null],
 				description: 'Error message returned from the API.',
 			}),
 			success: t.Literal(true, {
+				examples: [true],
 				description: 'Whether the response was successfull or not.',
 			}),
 		}),
 		t.Object({
 			data: t.Null(),
 			error: t.String({
+				examples: ['API key inválida.'],
 				description: 'Error message returned from the API.',
 			}),
 			success: t.Literal(false, {
+				examples: [false],
 				description: 'Whether the response was successfull or not.',
 			}),
 		}),
@@ -64,18 +68,22 @@ export const APIResponseWithPagination = <Schema extends TAnySchema>(
 			pagination: t.Object({
 				page: t.Integer({
 					minimum: 1,
+					examples: [1],
 					description: 'Current page.',
 				}),
 				limit: t.Integer({
 					minimum: 0,
+					examples: [15],
 					description: 'Number of items per page.',
 				}),
 				items: t.Integer({
 					minimum: 0,
+					examples: [5],
 					description: 'Number of items.',
 				}),
 				totalPages: t.Integer({
 					minimum: 0,
+					examples: [1],
 					description: 'Number of pages.',
 				}),
 			}),
@@ -117,15 +125,19 @@ export const APIResponseWithCursorBasedPagination = <Schema extends TAnySchema>(
 			pagination: t.Object({
 				limit: t.Integer({
 					minimum: 0,
+					examples: [15],
 					description: 'Number of items per page.',
 				}),
 				hasNext: t.Boolean({
+					examples: [false],
 					description: 'Indicates whether there is a next page.',
 				}),
 				hasPrevious: t.Boolean({
+					examples: [true],
 					description: 'Indicates whether there is a previous page.',
 				}),
 				nextCursor: t.Union([t.Null(), t.String()], {
+					examples: [null],
 					description: 'Cursor for the next page.',
 				}),
 			}),
@@ -157,6 +169,7 @@ export const RESTPostCreateNewCheckoutBody = t.Object({
 	returnUrl: t.Optional(
 		t.String({
 			format: 'uri',
+			examples: ['https://yourstore.com/checkout/cancelled'],
 			description:
 				'URL to redirect the customer if they click on the "Back" option.',
 		}),
@@ -164,11 +177,13 @@ export const RESTPostCreateNewCheckoutBody = t.Object({
 	completionUrl: t.Optional(
 		t.String({
 			format: 'uri',
+			examples: ['https://yourstore.com/checkout/thanks'],
 			description: 'URL to redirect the customer when payment is completed.',
 		}),
 	),
 	customerId: t.Optional(
 		t.String({
+			examples: [undefined],
 			description: 'The ID of a customer already registered in your store.',
 		}),
 	),
@@ -176,20 +191,27 @@ export const RESTPostCreateNewCheckoutBody = t.Object({
 		t.Pick(APICustomer, ['name', 'email', 'taxId', 'cellphone']),
 	),
 	coupons: t.Optional(
-		t.Array(t.String(), {
-			maxItems: 50,
-			description:
-				'List of coupons available for resem used with billing (0-50 max.).',
-		}),
+		t.Array(
+			t.String({
+				examples: ['SUMMER_26'],
+			}),
+			{
+				maxItems: 50,
+				description:
+					'List of coupons available for resem used with billing (0-50 max.).',
+			},
+		),
 	),
 	externalId: t.Optional(
 		t.String({
+			examples: ['invoice_123456'],
 			description:
 				'If you have a unique identifier for your billing application, completely optional.',
 		}),
 	),
 	metadata: t.Optional(
 		t.Record(t.String(), t.Any(), {
+			examples: [{}],
 			description: 'Optional billing metadata.',
 		}),
 	),
@@ -256,6 +278,7 @@ export type RESTGetCheckoutData = Static<typeof RESTGetCheckoutData>;
  */
 export const RESTGetCheckoutQueryParams = t.Object({
 	id: t.String({
+		examples: ['bill_12oimasd23'],
 		description: 'Unique billing identifier.',
 	}),
 });
@@ -280,22 +303,26 @@ export const RESTPostCreateCouponBody = t.Object({
 		description: 'Unique coupon identifier.',
 	}),
 	discount: t.Integer({
+		examples: [2300],
 		description: 'Discount amount to be applied.',
 	}),
 	discountKind: CouponDiscountKind,
 	notes: t.Optional(
 		t.String({
+			examples: ['Test coupon.'],
 			description: 'Coupon description',
 		}),
 	),
 	maxRedeems: t.Optional(
 		t.Integer({
 			minimum: -1,
+			examples: [3],
 			description:
 				'Number of times the coupon can be redeemed. -1 means this coupon can be redeemed without limits.',
 		}),
 	),
 	metadata: t.Record(t.String(), t.Any(), {
+		examples: [{}],
 		description: 'Key value object for coupon metadata.',
 	}),
 });
@@ -345,12 +372,14 @@ export const RESTGetListCouponsQueryParams = t.Object({
 		t.Integer({
 			minimum: 1,
 			default: 1,
+			examples: [3],
 			description: 'Page number.',
 		}),
 	),
 	limit: t.Optional(
 		t.Integer({
 			minimum: 1,
+			examples: [15],
 			description: 'Number of items per page.',
 		}),
 	),
@@ -372,6 +401,7 @@ export type RESTGetListCouponsQueryParams = Static<
  */
 export const RESTGetCouponQueryParams = t.Object({
 	id: t.String({
+		examples: ['SUMMER_26'],
 		description: 'The ID of the coupon.',
 	}),
 });
@@ -404,6 +434,7 @@ export type RESTGetCouponData = Static<typeof RESTGetCouponData>;
  */
 export const RESTDeleteCouponBody = t.Object({
 	id: t.String({
+		examples: ['SUMMER_26'],
 		description: 'The ID of the coupon.',
 	}),
 });
@@ -436,6 +467,7 @@ export type RESTDeleteCouponData = Static<typeof RESTDeleteCouponData>;
  */
 export const RESTPatchToggleCouponStatusBody = t.Object({
 	id: t.String({
+		examples: ['SUMMER_26'],
 		description: 'The ID of the coupon.',
 	}),
 });
@@ -472,14 +504,17 @@ export type RESTPatchToggleCouponStatusData = Static<
  */
 export const RESTPostCreateNewPayoutBody = t.Object({
 	externalId: t.String({
+		examples: ['invoice_1231231'],
 		description: 'Unique identifier of the payout in your system.',
 	}),
 	amount: t.Integer({
 		minimum: 350,
+		examples: [350],
 		description: 'Payout value in cents (Min 350).',
 	}),
 	description: t.Optional(
 		t.String({
+			examples: ['No desc for this.'],
 			description: 'Optional payout description.',
 		}),
 	),
@@ -517,6 +552,7 @@ export type RESTPostCreateNewPayoutData = Static<
  */
 export const RESTGetSearchPayoutQueryParams = t.Object({
 	externalId: t.String({
+		examples: ['invoice_12312312'],
 		description: 'Unique payout identifier in your system.',
 	}),
 });
@@ -540,12 +576,14 @@ export const RESTGetListPayoutsQueryParams = t.Object({
 		t.Integer({
 			minimum: 1,
 			default: 1,
+			examples: [3],
 			description: 'Page number.',
 		}),
 	),
 	limit: t.Optional(
 		t.Integer({
 			minimum: 1,
+			examples: [15],
 			description: 'Number of items per page.',
 		}),
 	),
@@ -583,6 +621,7 @@ export const RESTPostCreateQRCodePixBody = t.Intersect([
 	t.Pick(RESTPostCreateNewCheckoutBody, ['customer', 'metadata']),
 	t.Object({
 		amount: t.Integer({
+			examples: [1234],
 			description: 'Charge amount in cents.',
 		}),
 		expiresIn: t.Optional(
@@ -630,6 +669,7 @@ export type RESTPostCreateQRCodePixData = Static<
  */
 export const RESTPostSimulateQRCodePixPaymentQueryParams = t.Object({
 	id: t.String({
+		examples: ['pix_char_123adi9i2m'],
 		description: 'QRCode Pix ID.',
 	}),
 });
@@ -650,6 +690,7 @@ export type RESTPostSimulateQRCodePixPaymentQueryParams = Static<
  */
 export const RESTPostSimulateQRCodePixPaymentBody = t.Object({
 	metadata: t.Record(t.String(), t.Any(), {
+		examples: [{}],
 		description: 'Optional metadata for the request.',
 	}),
 });
@@ -686,6 +727,7 @@ export type RESTPostSimulateQRCodePixPaymentData = Static<
  */
 export const RESTGetCheckQRCodePixStatusQueryParams = t.Object({
 	id: t.String({
+		examples: ['pix_char_1239129'],
 		description: 'QRCode Pix ID.',
 	}),
 });
@@ -706,6 +748,7 @@ export type RESTGetCheckQRCodePixStatusQueryParams = Static<
  */
 export const RESTGetCheckQRCodePixStatusData = t.Object({
 	expiresAt: t.Date({
+		examples: [new Date()],
 		description: 'QRCode Pix expiration date.',
 	}),
 	status: PaymentStatus,
@@ -771,12 +814,14 @@ export const RESTGetListProductsQueryParams = t.Object({
 		t.Integer({
 			minimum: 1,
 			default: 1,
+			examples: [3],
 			description: 'Page number.',
 		}),
 	),
 	limit: t.Optional(
 		t.Integer({
 			minimum: 1,
+			examples: [15],
 			description: 'Number of items per page.',
 		}),
 	),
@@ -868,11 +913,13 @@ export type RESTGetStoreDetailsData = Static<typeof RESTGetStoreDetailsData>;
 export const RESTGetMRRData = t.Object({
 	mrr: t.Integer({
 		minimum: 0,
+		examples: [100],
 		description:
 			'Monthly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
 	}),
 	totalActiveSubscriptions: t.Integer({
 		minimum: 0,
+		examples: [1],
 		description:
 			'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
 	}),
@@ -947,6 +994,7 @@ export const RESTGetListSubscriptionsQueryParams = t.Object({
 	),
 	limit: t.Optional(
 		t.Integer({
+			examples: [3],
 			default: 20,
 			description: 'Number of items per page.',
 		}),
@@ -1038,12 +1086,14 @@ export const RESTGetListCustomersQueryParams = t.Object({
 	page: t.Optional(
 		t.Integer({
 			minimum: 1,
+			examples: [3],
 			default: 1,
 			description: 'Page number.',
 		}),
 	),
 	limit: t.Optional(
 		t.Integer({
+			examples: [10],
 			minimum: 1,
 			description: 'Number of items per page.',
 		}),
@@ -1066,6 +1116,7 @@ export type RESTGetListCustomersQueryParams = Static<
  */
 export const RESTGetCustomerQueryParams = t.Object({
 	id: t.String({
+		examples: ['1293kasd'],
 		description: 'The ID of the customer.',
 	}),
 });
@@ -1100,6 +1151,7 @@ export type RESTGetCustomerData = Static<typeof RESTGetCustomerData>;
  */
 export const RESTDeleteCustomerBody = t.Object({
 	id: t.String({
+		examples: ['cust_12malsdi93w'],
 		description: 'Unique public identifier of the customer to be deleted.',
 	}),
 });
@@ -1135,9 +1187,11 @@ export type RESTDeleteCustomerData = Static<typeof RESTDeleteCustomerData>;
  */
 export const RESTGetRevenueByPeriodQueryParams = t.Object({
 	startDate: t.Date({
+		examples: [new Date()],
 		description: 'Period start date (YYYY-MM-DD format).',
 	}),
 	endDate: t.Date({
+		examples: [new Date()],
 		description: 'Period end date (YYYY-MM-DD format).',
 	}),
 });
@@ -1158,18 +1212,22 @@ export type RESTGetRevenueByPeriodQueryParams = Static<
  */
 export const RESTGetRevenueByPeriodData = t.Object({
 	totalRevenue: t.Integer({
+		examples: [10000],
 		description: 'Total revenue for the period in cents.',
 	}),
 	totalTransactions: t.Integer({
+		examples: [39],
 		description: 'Total transactions in the period.',
 	}),
 	transactionsPerDay: t.Record(
 		t.String(),
 		t.Object({
 			amount: t.Integer({
+				examples: [3200],
 				description: "Total value of the day's transactions in cents.",
 			}),
 			count: t.Integer({
+				examples: [12],
 				description: 'Number of transactions for the day.',
 			}),
 		}),
@@ -1196,13 +1254,16 @@ export type RESTGetRevenueByPeriodData = Static<
  */
 export const RESTGetMerchantData = t.Object({
 	name: t.String({
+		examples: ['Summer Store'],
 		description: 'Store name.',
 	}),
 	website: t.String({
 		format: 'uri',
+		examples: ['https://summer-store.com/'],
 		description: 'Store website.',
 	}),
 	createdAt: t.Date({
+		examples: [new Date()],
 		description: 'Store creation date.',
 	}),
 });
