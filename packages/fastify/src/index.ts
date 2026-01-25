@@ -17,7 +17,7 @@ export { version } from './version';
 export const Webhooks = (options: WebhookOptions) => {
 	if (!options.secret)
 		throw new AbacatePayFastifyError(
-			'Webhook secret is missing. Set ABACATEPAY_WEBHOOK_SECRET.',
+			'Webhook secret is missing.',
 			{ code: 'WEBHOOK_SECRET_MISSING' },
 		);
 
