@@ -3,4 +3,4 @@
 /**
  * Current version of [@abacatepay/adapters](https://www.npmjs.com/package/@abacatepay/adapters).
  */
-export const version = '1.0.1' as const;
+export const version = '1.0.2' as const;

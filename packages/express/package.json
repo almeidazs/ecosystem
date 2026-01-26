@@ -1,9 +1,9 @@
 {
 	"name": "@abacatepay/express",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"main": "./dist/index.js",
 	"devDependencies": {
@@ -14,6 +14,17 @@
 		"@types/express": "^5.0.6",
 		"express": "^5.2.1"
 	},
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",

@@ -1,5 +1,5 @@
 {
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"name": "@abacatepay/types",
 	"description": "Abacate Pay API typings that are always up to date.",
 	"type": "module",
@@ -53,6 +53,17 @@
 		"@biomejs/biome": "^2.3.8",
 		"typescript": "^5.9.3"
 	},
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"keywords": [
 		"api",
 		"abacatepay",
@@ -64,6 +75,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	}
 }

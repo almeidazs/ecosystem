@@ -384,10 +384,9 @@ export const RESTPostCreateNewWithdrawBody = t.Object({
 	}),
 	pix: t.Object(
 		{
-			type: StringEnum(
-				['CPF', 'CNPJ', 'PHONE', 'EMAIL', 'RANDOM', 'BR_CODE'],
-				'PIX key type.',
-			),
+			type: StringEnum(['CPF', 'CNPJ', 'PHONE', 'EMAIL', 'RANDOM', 'BR_CODE'], {
+				description: 'PIX key type.',
+			}),
 			key: t.String({
 				description: 'PIX key value.',
 			}),

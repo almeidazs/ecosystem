@@ -40,15 +40,9 @@ Todos os pacotes vivem em `packages/*` e são publicados como `@abacatepay/<nome
   - release independente
 - O fluxo de releases é automatizado via CI
 
-<p align="center">
-  <sub>
-    <samp>
-      Você pode ver todos os releases por <a href="https://github.com/almeidazs/ecosystem/releases">aqui</a>
-    </samp>
-  </sub>
-</p>
-
 <div align="center">
+
+Inicialmente criado e principalmente mantido por [almeida](https://github.com/almeidazs) e [albq](https://github.com/albuquerquesz).
 
 Feito com 🥑 pela equipe AbacatePay</br>
 Open source, de verdade.

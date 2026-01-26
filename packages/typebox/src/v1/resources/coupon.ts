@@ -4,10 +4,9 @@ import { StringEnum } from '../../utils';
 /**
  * https://docs.abacatepay.com/pages/coupon/reference#atributos
  */
-export const CouponDiscountKind = StringEnum(
-	['FIXED', 'PERCENTAGE'],
-	'Type of discount applied by the coupon.',
-);
+export const CouponDiscountKind = StringEnum(['FIXED', 'PERCENTAGE'], {
+	description: 'Type of discount applied by the coupon.',
+});
 
 /**
  * https://docs.abacatepay.com/pages/coupon/reference#atributos
@@ -17,10 +16,9 @@ export type CouponDiscountKind = Static<typeof CouponDiscountKind>;
 /**
  * https://docs.abacatepay.com/pages/coupon/reference#atributos
  */
-export const CouponStatus = StringEnum(
-	['ACTIVE', 'DELETE', 'DISABLED'],
-	'Coupon status.',
-);
+export const CouponStatus = StringEnum(['ACTIVE', 'DELETE', 'DISABLED'], {
+	description: 'Coupon status.',
+});
 
 /**
  * https://docs.abacatepay.com/pages/coupon/reference#atributos

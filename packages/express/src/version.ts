@@ -3,4 +3,4 @@
 /**
  * Current version of [@abacatepay/express](https://www.npmjs.com/package/@abacatepay/express).
  */
-export const version = '1.0.1' as const;
+export const version = '1.0.2' as const;

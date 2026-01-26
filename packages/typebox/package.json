@@ -1,10 +1,21 @@
 {
 	"name": "@abacatepay/typebox",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Official TypeBox schemas for the AbacatePay API, including requests, responses, and webhooks.",
 	"type": "module",
 	"sideEffects": false,
 	"license": "Apache-2.0",
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -57,7 +68,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"keywords": [
 		"abacatepay",

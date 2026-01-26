@@ -8,7 +8,7 @@ const rule: Rule.RuleModule = {
 		hasSuggestions: true,
 		docs: {
 			recommended: true,
-			url: 'https://github.com/almeidazs/ecosystem',
+			url: 'https://github.com/AbacatePay/ecosystem',
 			description: 'Disallow hardcoded AbacatePay secret keys',
 		},
 		messages: {

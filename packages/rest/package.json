@@ -1,6 +1,6 @@
 {
 	"name": "@abacatepay/rest",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"sideEffects": false,
 	"license": "Apache-2.0",
@@ -16,6 +16,17 @@
 	"files": [
 		"dist"
 	],
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"scripts": {
 		"test": "bun test",
 		"build": "rm -rf dist && bun run scripts/version.ts && bun build src/index.ts --outdir dist --target node && bun run types",
@@ -28,7 +39,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"keywords": [
 		"abacatepay",

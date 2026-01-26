@@ -6,7 +6,7 @@ import { StringEnum } from '../../utils';
  */
 export const WithdrawStatus = StringEnum(
 	['PENDING', 'EXPIRED', 'CANCELLED', 'COMPLETE', 'REFUNDED'],
-	'Transaction status.',
+	{ description: 'Transaction status.' },
 );
 
 /**

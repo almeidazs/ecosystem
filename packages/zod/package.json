@@ -5,6 +5,21 @@
 	"type": "module",
 	"sideEffects": false,
 	"license": "Apache-2.0",
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		},
+		{
+			"name": "Albuquerque",
+			"url": "https://github.com/albuquerquesz"
+		}
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -57,7 +72,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"keywords": [
 		"abacatepay",

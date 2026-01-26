@@ -1,6 +1,6 @@
 {
 	"name": "@abacatepay/eslint-plugin",
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"type": "module",
 	"main": "dist/index.js",
 	"exports": {
@@ -11,6 +11,17 @@
 	},
 	"files": [
 		"dist"
+	],
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
 	],
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -30,12 +41,12 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"bugs": {
-		"url": "https://github.com/almeidazs/abacatepay-eslint/issues"
+		"url": "https://github.com/AbacatePay/abacatepay-eslint/issues"
 	},
-	"homepage": "https://github.com/almeidazs/abacatepay-eslint#readme",
+	"homepage": "https://github.com/AbacatePay/abacatepay-eslint#readme",
 	"keywords": [
 		"eslint",
 		"eslint-plugin",

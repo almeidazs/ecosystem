@@ -1,9 +1,9 @@
 {
 	"name": "@abacatepay/supabase",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"main": "./dist/index.js",
 	"devDependencies": {
@@ -17,6 +17,17 @@
 			"default": "./dist/index.js"
 		}
 	},
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"description": "Checkouts and Webhooks made simple with AbacatePay and Supabase.",
 	"engines": {
 		"node": ">=18",
