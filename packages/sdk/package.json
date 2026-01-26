@@ -1,6 +1,6 @@
 {
 	"name": "@abacatepay/sdk",
-	"version": "1.0.1",
+	"version": "1.2.0",
 	"type": "module",
 	"sideEffects": false,
 	"license": "Apache-2.0",
