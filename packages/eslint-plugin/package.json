@@ -12,6 +12,17 @@
 	"files": [
 		"dist"
 	],
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "bun test",
@@ -30,12 +41,12 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "https://github.com/AbacatePay/ecosystem"
 	},
 	"bugs": {
-		"url": "https://github.com/almeidazs/abacatepay-eslint/issues"
+		"url": "https://github.com/AbacatePay/abacatepay-eslint/issues"
 	},
-	"homepage": "https://github.com/almeidazs/abacatepay-eslint#readme",
+	"homepage": "https://github.com/AbacatePay/abacatepay-eslint#readme",
 	"keywords": [
 		"eslint",
 		"eslint-plugin",

@@ -3,8 +3,19 @@
 	"version": "1.0.1",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "https://github.com/AbacatePay/ecosystem"
 	},
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"main": "./dist/index.js",
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.11",

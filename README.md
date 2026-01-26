@@ -43,7 +43,7 @@ Todos os pacotes vivem em `packages/*` e são publicados como `@abacatepay/<nome
 <p align="center">
   <sub>
     <samp>
-      Você pode ver todos os releases por <a href="https://github.com/almeidazs/ecosystem/releases">aqui</a>
+      Você pode ver todos os releases por <a href="https://github.com/AbacatePay/ecosystem/releases">aqui</a>
     </samp>
   </sub>
 </p>

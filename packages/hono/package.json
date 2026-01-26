@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/almeidazs/ecosystem"
+		"url": "https://github.com/AbacatePay/ecosystem"
 	},
 	"main": "./dist/index.js",
 	"devDependencies": {
@@ -13,6 +13,17 @@
 	"peerDependencies": {
 		"hono": "^4.11.4"
 	},
+	"author": {
+		"name": "AbacatePay",
+		"email": "opensource@abacatepay.com",
+		"url": "https://abacatepay.com"
+	},
+	"maintainers": [
+		{
+			"name": "Almeida",
+			"url": "https://github.com/almeidazs"
+		}
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
