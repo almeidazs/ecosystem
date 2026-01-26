@@ -24,4 +24,7 @@ export const APIStore = z.object({
 		.describe('Object containing information about your account balances.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/store/reference#estrutura
+ */
 export type APIStore = z.infer<typeof APIStore>;

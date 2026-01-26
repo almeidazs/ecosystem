@@ -1,11 +1,17 @@
 import { z } from 'zod';
 import { StringEnum } from '../../utils';
 
+/**
+ * https://docs.abacatepay.com/pages/products/reference#atributos
+ */
 export const ProductStatus = StringEnum(
 	['ACTIVE', 'INACTIVE'],
 	'Product status.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/products/reference#atributos
+ */
 export type ProductStatus = z.infer<typeof ProductStatus>;
 
 /**
@@ -28,4 +34,7 @@ export const APIProduct = z.object({
 	description: z.union([z.null(), z.string()]).describe('Product description.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/products/reference#estrutura
+ */
 export type APIProduct = z.infer<typeof APIProduct>;

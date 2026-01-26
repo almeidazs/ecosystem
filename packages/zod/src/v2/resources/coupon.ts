@@ -9,13 +9,22 @@ export const CouponDiscountKind = StringEnum(
 	'Type of discount applied by the coupon.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/coupon/reference#atributos
+ */
 export type CouponDiscountKind = z.infer<typeof CouponDiscountKind>;
 
+/**
+ * https://docs.abacatepay.com/pages/coupon/reference#atributos
+ */
 export const CouponStatus = StringEnum(
 	['ACTIVE', 'INACTIVE', 'EXPIRED'],
 	'Coupon status.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/coupon/reference#atributos
+ */
 export type CouponStatus = z.infer<typeof CouponStatus>;
 
 /**
@@ -62,4 +71,7 @@ export const APICoupon = z.object({
 		),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/coupon/reference#estrutura
+ */
 export type APICoupon = z.infer<typeof APICoupon>;

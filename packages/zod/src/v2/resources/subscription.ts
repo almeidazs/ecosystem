@@ -11,13 +11,22 @@ export const APISubscriptionEvent = z.object({
 	createdAt: z.coerce.date().describe('Event cretion date.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/subscriptions/reference#estrutura
+ */
 export type APISubscriptionEvent = z.infer<typeof APISubscriptionEvent>;
 
+/**
+ * https://docs.abacatepay.com/pages/subscriptions/reference#atributos
+ */
 export const SubscriptionStatus = StringEnum(
 	['ACTIVE', 'PENDING', 'CANCELLED', 'EXPIRED', 'FAILED'],
 	'Subscription status.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/subscriptions/reference#atributos
+ */
 export type SubscriptionStatus = z.infer<typeof SubscriptionStatus>;
 
 /**
@@ -75,4 +84,7 @@ export const APISubscription = z.object({
 		.describe('Array of events related to the subscription.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/subscriptions/reference#estrutura
+ */
 export type APISubscription = z.infer<typeof APISubscription>;

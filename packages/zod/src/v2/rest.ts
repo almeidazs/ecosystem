@@ -34,6 +34,9 @@ export const APIResponse = <Schema extends ZodTypeAny>(schema: Schema) =>
 		}),
 	]);
 
+/**
+ * Any response returned by the AbacatePay API
+ */
 export type APIResponse<Schema extends z.ZodTypeAny> = z.infer<
 	ReturnType<typeof APIResponse<Schema>>
 >;
@@ -68,6 +71,10 @@ export const APIResponseWithPagination = <Schema extends ZodTypeAny>(
 		}),
 	]);
 
+/**
+ * Any response returned by the AbacatePay API that has a `pagination` field (Not cursor based)
+ * @returns
+ */
 export type APIResponseWithPagination<Schema extends z.ZodTypeAny> = z.infer<
 	ReturnType<typeof APIResponseWithPagination<Schema>>
 >;
@@ -107,6 +114,9 @@ export const APIResponseWithCursorBasedPagination = <Schema extends ZodTypeAny>(
 		}),
 	]);
 
+/**
+ * Any response returned by the AbacatePay API that has a `pagination` field and is cursor-based
+ */
 export type APIResponseWithCursorBasedPagination<Schema extends z.ZodTypeAny> =
 	z.infer<ReturnType<typeof APIResponseWithCursorBasedPagination<Schema>>>;
 
@@ -159,6 +169,11 @@ export const RESTPostCreateNewCheckoutBody = z.object({
 	items: APICheckout.shape.items,
 });
 
+/**
+ * https://api.abacatepay.com/v2/checkouts/create
+ *
+ * @reference https://docs.abacatepay.com/pages/checkout/create
+ */
 export type RESTPostCreateNewCheckoutBody = z.infer<
 	typeof RESTPostCreateNewCheckoutBody
 >;
@@ -170,6 +185,11 @@ export type RESTPostCreateNewCheckoutBody = z.infer<
  */
 export const RESTPostCreateNewCheckoutData = APICheckout;
 
+/**
+ * https://api.abacatepay.com/v2/checkouts/create
+ *
+ * @reference https://docs.abacatepay.com/pages/checkouts/create
+ */
 export type RESTPostCreateNewCheckoutData = z.infer<
 	typeof RESTPostCreateNewCheckoutData
 >;
@@ -181,6 +201,11 @@ export type RESTPostCreateNewCheckoutData = z.infer<
  */
 export const RESTGetListCheckoutsData = z.array(APICheckout);
 
+/**
+ * https://api.abacatepay.com/v2/checkouts/list
+ *
+ * @reference https://docs.abacatepay.com/pages/checkouts/list
+ */
 export type RESTGetListCheckoutsData = z.infer<typeof RESTGetListCheckoutsData>;
 
 /**
@@ -190,6 +215,11 @@ export type RESTGetListCheckoutsData = z.infer<typeof RESTGetListCheckoutsData>;
  */
 export const RESTGetCheckoutData = APICheckout;
 
+/**
+ * https://api.abacatepay.com/v2/checkouts/get
+ *
+ * @reference https://docs.abacatepay.com/pages/checkouts/get
+ */
 export type RESTGetCheckoutData = z.infer<typeof RESTGetCheckoutData>;
 
 /**
@@ -201,6 +231,11 @@ export const RESTGetCheckoutQueryParams = z.object({
 	id: z.string().describe('Unique billing identifier.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/checkouts/get
+ *
+ * @reference https://docs.abacatepay.com/pages/checkouts/get
+ */
 export type RESTGetCheckoutQueryParams = z.infer<
 	typeof RESTGetCheckoutQueryParams
 >;
@@ -228,6 +263,11 @@ export const RESTPostCreateCouponBody = z.object({
 		.describe('Key value object for coupon metadata.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/coupons/create
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/create
+ */
 export type RESTPostCreateCouponBody = z.infer<typeof RESTPostCreateCouponBody>;
 
 /**
@@ -237,6 +277,11 @@ export type RESTPostCreateCouponBody = z.infer<typeof RESTPostCreateCouponBody>;
  */
 export const RESTPostCreateCouponData = APICoupon;
 
+/**
+ * https://api.abacatepay.com/v2/coupon/create
+ *
+ * @reference https://docs.abacatepay.com/pages/coupon/create
+ */
 export type RESTPostCreateCouponData = z.infer<typeof RESTPostCreateCouponData>;
 
 /**
@@ -246,6 +291,11 @@ export type RESTPostCreateCouponData = z.infer<typeof RESTPostCreateCouponData>;
  */
 export const RESTGetListCouponsData = z.array(APICoupon);
 
+/**
+ * https://api.abacatepay.com/v2/coupons/list
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/list
+ */
 export type RESTGetListCouponsData = z.infer<typeof RESTGetListCouponsData>;
 
 /**
@@ -263,6 +313,11 @@ export const RESTGetListCouponsQueryParams = z.object({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/coupons/list
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/list
+ */
 export type RESTGetListCouponsQueryParams = z.infer<
 	typeof RESTGetListCouponsQueryParams
 >;
@@ -276,6 +331,11 @@ export const RESTGetCouponQueryParams = z.object({
 	id: z.string().describe('The ID of the coupon.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/coupons/get
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/get
+ */
 export type RESTGetCouponQueryParams = z.infer<typeof RESTGetCouponQueryParams>;
 
 /**
@@ -285,6 +345,11 @@ export type RESTGetCouponQueryParams = z.infer<typeof RESTGetCouponQueryParams>;
  */
 export const RESTGetCouponData = APICoupon;
 
+/**
+ * https://api.abacatepay.com/v2/coupons/get
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/get
+ */
 export type RESTGetCouponData = z.infer<typeof RESTGetCouponData>;
 
 /**
@@ -296,6 +361,11 @@ export const RESTDeleteCouponBody = z.object({
 	id: z.string().describe('The ID of the coupon.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/coupons/delete
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/delete
+ */
 export type RESTDeleteCouponBody = z.infer<typeof RESTDeleteCouponBody>;
 
 /**
@@ -305,6 +375,11 @@ export type RESTDeleteCouponBody = z.infer<typeof RESTDeleteCouponBody>;
  */
 export const RESTDeleteCouponData = APICoupon;
 
+/**
+ * https://api.abacatepay.com/v2/coupons/delete
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/delete
+ */
 export type RESTDeleteCouponData = z.infer<typeof RESTDeleteCouponData>;
 
 /**
@@ -316,6 +391,11 @@ export const RESTPatchToggleCouponStatusBody = z.object({
 	id: z.string().describe('The ID of the coupon.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/coupons/toggle
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/toggle
+ */
 export type RESTPatchToggleCouponStatusBody = z.infer<
 	typeof RESTPatchToggleCouponStatusBody
 >;
@@ -327,6 +407,11 @@ export type RESTPatchToggleCouponStatusBody = z.infer<
  */
 export const RESTPatchToggleCouponStatusData = APICoupon;
 
+/**
+ * https://api.abacatepay.com/v2/coupons/toggle
+ *
+ * @reference https://docs.abacatepay.com/pages/coupons/toggle
+ */
 export type RESTPatchToggleCouponStatusData = z.infer<
 	typeof RESTPatchToggleCouponStatusData
 >;
@@ -348,6 +433,11 @@ export const RESTPostCreateNewPayoutBody = z.object({
 	description: z.string().describe('Optional payout description.').optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/payouts/create
+ *
+ * @reference https://docs.abacatepay.com/pages/payouts/create
+ */
 export type RESTPostCreateNewPayoutBody = z.infer<
 	typeof RESTPostCreateNewPayoutBody
 >;
@@ -359,6 +449,11 @@ export type RESTPostCreateNewPayoutBody = z.infer<
  */
 export const RESTPostCreateNewPayoutData = APIPayout;
 
+/**
+ * https://api.abacatepay.com/v2/payouts/create
+ *
+ * @reference https://docs.abacatepay.com/pages/payouts/create
+ */
 export type RESTPostCreateNewPayoutData = z.infer<
 	typeof RESTPostCreateNewPayoutData
 >;
@@ -372,6 +467,11 @@ export const RESTGetSearchPayoutQueryParams = z.object({
 	externalId: z.string().describe('Unique payout identifier in your system.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/payouts/get
+ *
+ * @reference https://docs.abacatepay.com/pages/payouts/get
+ */
 export type RESTGetSearchPayoutQueryParams = z.infer<
 	typeof RESTGetSearchPayoutQueryParams
 >;
@@ -391,6 +491,11 @@ export const RESTGetListPayoutsQueryParams = z.object({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/payouts/list
+ *
+ * @reference https://docs.abacatepay.com/pages/payouts/list
+ */
 export type RESTGetListPayoutsQueryParams = z.infer<
 	typeof RESTGetListPayoutsQueryParams
 >;
@@ -402,6 +507,11 @@ export type RESTGetListPayoutsQueryParams = z.infer<
  */
 export const RESTGetListPayoutsData = z.array(APIPayout);
 
+/**
+ * https://api.abacatepay.com/v2/payouts/list
+ *
+ * @reference https://docs.abacatepay.com/pages/payouts/list
+ */
 export type RESTGetListPayoutsData = z.infer<typeof RESTGetListPayoutsData>;
 
 /**
@@ -425,6 +535,11 @@ export const RESTPostCreateQRCodePixBody = RESTPostCreateNewCheckoutBody.pick({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/transparents/create
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/create
+ */
 export type RESTPostCreateQRCodePixBody = z.infer<
 	typeof RESTPostCreateQRCodePixBody
 >;
@@ -436,6 +551,11 @@ export type RESTPostCreateQRCodePixBody = z.infer<
  */
 export const RESTPostCreateQRCodePixData = APIQRCodePIX;
 
+/**
+ * https://api.abacatepay.com/v2/transparents/create
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/create
+ */
 export type RESTPostCreateQRCodePixData = z.infer<
 	typeof RESTPostCreateQRCodePixData
 >;
@@ -449,6 +569,11 @@ export const RESTPostSimulateQRCodePixPaymentQueryParams = z.object({
 	id: z.string().describe('QRCode Pix ID.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
 export type RESTPostSimulateQRCodePixPaymentQueryParams = z.infer<
 	typeof RESTPostSimulateQRCodePixPaymentQueryParams
 >;
@@ -464,6 +589,11 @@ export const RESTPostSimulateQRCodePixPaymentBody = z.object({
 		.describe('Optional metadata for the request.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
 export type RESTPostSimulateQRCodePixPaymentBody = z.infer<
 	typeof RESTPostSimulateQRCodePixPaymentBody
 >;
@@ -475,6 +605,11 @@ export type RESTPostSimulateQRCodePixPaymentBody = z.infer<
  */
 export const RESTPostSimulateQRCodePixPaymentData = APIQRCodePIX;
 
+/**
+ * https://api.abacatepay.com/v2/transparents/simulate-payment
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/simulate-payment
+ */
 export type RESTPostSimulateQRCodePixPaymentData = z.infer<
 	typeof RESTPostSimulateQRCodePixPaymentData
 >;
@@ -488,6 +623,11 @@ export const RESTGetCheckQRCodePixStatusQueryParams = z.object({
 	id: z.string().describe('QRCode Pix ID.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/pixQrCode/check
+ *
+ * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
+ */
 export type RESTGetCheckQRCodePixStatusQueryParams = z.infer<
 	typeof RESTGetCheckQRCodePixStatusQueryParams
 >;
@@ -502,6 +642,11 @@ export const RESTGetCheckQRCodePixStatusData = z.object({
 	status: PaymentStatus,
 });
 
+/**
+ * https://api.abacatepay.com/v2/transparents/check
+ *
+ * @reference https://docs.abacatepay.com/pages/transparents/check
+ */
 export type RESTGetCheckQRCodePixStatusData = z.infer<
 	typeof RESTGetCheckQRCodePixStatusData
 >;
@@ -520,6 +665,11 @@ export const RESTPostCreateProductBody = APIProduct.pick({
 	description: z.string().describe('Description for the product.').optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/products/create
+ *
+ * @reference https://docs.abacatepay.com/pages/products/create
+ */
 export type RESTPostCreateProductBody = z.infer<
 	typeof RESTPostCreateProductBody
 >;
@@ -531,6 +681,11 @@ export type RESTPostCreateProductBody = z.infer<
  */
 export const RESTPostCreateProductData = APIProduct;
 
+/**
+ * https://api.abacatepay.com/v2/products/create
+ *
+ * @reference https://docs.abacatepay.com/pages/products/create
+ */
 export type RESTPostCreateProductData = z.infer<
 	typeof RESTPostCreateProductData
 >;
@@ -550,6 +705,11 @@ export const RESTGetListProductsQueryParams = z.object({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/products/list
+ *
+ * @reference https://docs.abacatepay.com/pages/products/list
+ */
 export type RESTGetListProductsQueryParams = z.infer<
 	typeof RESTGetListProductsQueryParams
 >;
@@ -561,6 +721,11 @@ export type RESTGetListProductsQueryParams = z.infer<
  */
 export const RESTGetListProductsData = z.array(APIProduct);
 
+/**
+ * https://api.abacatepay.com/v2/products/list
+ *
+ * @reference https://docs.abacatepay.com/pages/products/list
+ */
 export type RESTGetListProductsData = z.infer<typeof RESTGetListProductsData>;
 
 /**
@@ -573,6 +738,11 @@ export const RESTGetProductQueryParams = z.object({
 	externalId: z.string().describe('External ID of the product.').optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/products/get
+ *
+ * @reference https://docs.abacatepay.com/pages/products/get
+ */
 export type RESTGetProductQueryParams = z.infer<
 	typeof RESTGetProductQueryParams
 >;
@@ -584,6 +754,11 @@ export type RESTGetProductQueryParams = z.infer<
  */
 export const RESTGetProductData = APIProduct;
 
+/**
+ * https://api.abacatepay.com/v2/products/get
+ *
+ * @reference https://docs.abacatepay.com/pages/products/get
+ */
 export type RESTGetProductData = z.infer<typeof RESTGetProductData>;
 
 /**
@@ -593,6 +768,11 @@ export type RESTGetProductData = z.infer<typeof RESTGetProductData>;
  */
 export const RESTGetStoreDetailsData = APIStore;
 
+/**
+ * https://api.abacatepay.com/v2/store/get
+ *
+ * @reference https://docs.abacatepay.com/pages/store/get
+ */
 export type RESTGetStoreDetailsData = z.infer<typeof RESTGetStoreDetailsData>;
 
 /**
@@ -617,6 +797,11 @@ export const RESTGetMRRData = z.object({
 		),
 });
 
+/**
+ * https://api.abacatepay.com/v2/public-mrr/mrr
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/mrr
+ */
 export type RESTGetMRRData = z.infer<typeof RESTGetMRRData>;
 
 /**
@@ -636,6 +821,11 @@ export const RESTPostCreateSubscriptionBody = APISubscription.pick({
 	description: z.string().describe('Subscription description.').optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/subscriptions/create
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/create
+ */
 export type RESTPostCreateSubscriptionBody = z.infer<
 	typeof RESTPostCreateSubscriptionBody
 >;
@@ -647,6 +837,11 @@ export type RESTPostCreateSubscriptionBody = z.infer<
  */
 export const RESTPostCreateSubscriptionData = APISubscription;
 
+/**
+ * https://api.abacatepay.com/v2/subscriptions/create
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/create
+ */
 export type RESTPostCreateSubscriptionData = z.infer<
 	typeof RESTPostCreateSubscriptionData
 >;
@@ -666,6 +861,11 @@ export const RESTGetListSubscriptionsQueryParams = z.object({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/subscriptions/list
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/list
+ */
 export type RESTGetListSubscriptionsQueryParams = z.infer<
 	typeof RESTGetListSubscriptionsQueryParams
 >;
@@ -677,6 +877,11 @@ export type RESTGetListSubscriptionsQueryParams = z.infer<
  */
 export const RESTGetListSubscriptionsData = z.array(APISubscription);
 
+/**
+ * https://api.abacatepay.com/v2/subscriptions/list
+ *
+ * @reference https://docs.abacatepay.com/pages/subscriptions/list
+ */
 export type RESTGetListSubscriptionsData = z.infer<
 	typeof RESTGetListSubscriptionsData
 >;
@@ -698,6 +903,11 @@ export const RESTPostCreateCustomerBody = APICustomer.pick({
 	}).partial(),
 );
 
+/**
+ * https://api.abacatepay.com/v2/customers/create
+ *
+ * @reference https://docs.abacatepay.com/pages/client/create
+ */
 export type RESTPostCreateCustomerBody = z.infer<
 	typeof RESTPostCreateCustomerBody
 >;
@@ -709,6 +919,11 @@ export type RESTPostCreateCustomerBody = z.infer<
  */
 export const RESTPostCreateCustomerData = APICustomer;
 
+/**
+ * https://api.abacatepay.com/v2/customers/create
+ *
+ * @reference https://docs.abacatepay.com/pages/client/create
+ */
 export type RESTPostCreateCustomerData = z.infer<
 	typeof RESTPostCreateCustomerData
 >;
@@ -720,6 +935,11 @@ export type RESTPostCreateCustomerData = z.infer<
  */
 export const RESTGetListCustomersData = z.array(APICustomer);
 
+/**
+ * https://api.abacatepay.com/v2/customers/list
+ *
+ * @reference https://docs.abacatepay.com/pages/client/list
+ */
 export type RESTGetListCustomersData = z.infer<typeof RESTGetListCustomersData>;
 
 /**
@@ -737,6 +957,11 @@ export const RESTGetListCustomersQueryParams = z.object({
 		.optional(),
 });
 
+/**
+ * https://api.abacatepay.com/v2/customers/list
+ *
+ * @reference https://docs.abacatepay.com/pages/client/list
+ */
 export type RESTGetListCustomersQueryParams = z.infer<
 	typeof RESTGetListCustomersQueryParams
 >;
@@ -750,6 +975,11 @@ export const RESTGetCustomerQueryParams = z.object({
 	id: z.string().describe('The ID of the customer.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/customers/get
+ *
+ * @reference https://docs.abacatepay.com/pages/client/get
+ */
 export type RESTGetCustomerQueryParams = z.infer<
 	typeof RESTGetCustomerQueryParams
 >;
@@ -764,6 +994,11 @@ export const RESTGetCustomerData = APICustomer.omit({
 	zipCode: true,
 });
 
+/**
+ * https://api.abacatepay.com/v2/customers/get
+ *
+ * @reference https://docs.abacatepay.com/pages/client/get
+ */
 export type RESTGetCustomerData = z.infer<typeof RESTGetCustomerData>;
 
 /**
@@ -777,6 +1012,11 @@ export const RESTDeleteCustomerBody = z.object({
 		.describe('Unique public identifier of the customer to be deleted.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/customers/delete
+ *
+ * @reference https://docs.abacatepay.com/pages/client/delete
+ */
 export type RESTDeleteCustomerBody = z.infer<typeof RESTDeleteCustomerBody>;
 
 /**
@@ -789,6 +1029,11 @@ export const RESTDeleteCustomerData = APICustomer.omit({
 	zipCode: true,
 });
 
+/**
+ * https://api.abacatepay.com/v2/customers/delete
+ *
+ * @reference https://docs.abacatepay.com/pages/client/delete
+ */
 export type RESTDeleteCustomerData = z.infer<typeof RESTDeleteCustomerData>;
 
 /**
@@ -801,6 +1046,11 @@ export const RESTGetRevenueByPeriodQueryParams = z.object({
 	endDate: z.coerce.date().describe('Period end date (YYYY-MM-DD format).'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/public-mrr/revenue
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/list
+ */
 export type RESTGetRevenueByPeriodQueryParams = z.infer<
 	typeof RESTGetRevenueByPeriodQueryParams
 >;
@@ -835,6 +1085,11 @@ export const RESTGetRevenueByPeriodData = z.object({
 		),
 });
 
+/**
+ * https://api.abacatepay.com/v2/public-mrr/revenue
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/list
+ */
 export type RESTGetRevenueByPeriodData = z.infer<
 	typeof RESTGetRevenueByPeriodData
 >;
@@ -850,4 +1105,9 @@ export const RESTGetMerchantData = z.object({
 	createdAt: z.coerce.date().describe('Store creation date.'),
 });
 
+/**
+ * https://api.abacatepay.com/v2/public-mrr/merchant-info
+ *
+ * @reference https://docs.abacatepay.com/pages/trustMRR/get
+ */
 export type RESTGetMerchantData = z.infer<typeof RESTGetMerchantData>;
