@@ -34,4 +34,7 @@ export const APIStore = z.object({
 	),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/store/reference#estrutura
+ */
 export type APIStore = z.infer<typeof APIStore>;

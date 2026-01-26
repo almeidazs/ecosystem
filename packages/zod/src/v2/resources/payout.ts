@@ -9,6 +9,9 @@ export const PayoutStatus = StringEnum(
 	'Transaction status.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/payouts/reference#atributos
+ */
 export type PayoutStatus = z.infer<typeof PayoutStatus>;
 
 /**
@@ -32,4 +35,7 @@ export const APIPayout = z.object({
 	updatedAt: z.coerce.date().describe('Transaction update date.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/payouts/reference
+ */
 export type APIPayout = z.infer<typeof APIPayout>;

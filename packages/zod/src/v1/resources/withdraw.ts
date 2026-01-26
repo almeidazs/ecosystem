@@ -9,6 +9,9 @@ export const WithdrawStatus = StringEnum(
 	'Transaction status.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/withdraw/reference#atributos
+ */
 export type WithdrawStatus = z.infer<typeof WithdrawStatus>;
 
 /**
@@ -54,4 +57,7 @@ export const APIWithdraw = z.object({
 	}),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/withdraws/reference
+ */
 export type APIWithdraw = z.infer<typeof APIWithdraw>;

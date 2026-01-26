@@ -49,4 +49,7 @@ export const APIQRCodePIX = z.object({
 	}),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/transparents/reference
+ */
 export type APIQRCodePIX = z.infer<typeof APIQRCodePIX>;

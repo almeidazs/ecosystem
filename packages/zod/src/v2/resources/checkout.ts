@@ -9,6 +9,9 @@ export const PaymentStatus = StringEnum(
 	'Billing status. Can be `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/payment/reference#atributos
+ */
 export type PaymentStatus = z.infer<typeof PaymentStatus>;
 
 /**
@@ -16,6 +19,9 @@ export type PaymentStatus = z.infer<typeof PaymentStatus>;
  */
 export const PaymentMethod = StringEnum(['PIX', 'CARD'], 'Payment method.');
 
+/**
+ * https://docs.abacatepay.com/pages/payment/create#body-methods
+ */
 export type PaymentMethod = z.infer<typeof PaymentMethod>;
 
 /**
@@ -85,4 +91,7 @@ export const APICheckout = z.object({
 	updatedAt: z.coerce.date().describe('Charge last updated date and time.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/checkouts/reference#estrutura
+ */
 export type APICheckout = z.infer<typeof APICheckout>;

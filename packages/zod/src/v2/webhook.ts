@@ -10,6 +10,9 @@ export const WebhookEventType = StringEnum(
 	'Webhook event type.',
 );
 
+/**
+ * https://docs.abacatepay.com/pages/webhooks
+ */
 export type WebhookEventType = z.infer<typeof WebhookEventType>;
 
 export const BaseWebhookEvent = <
@@ -48,6 +51,9 @@ export const WebhookPayoutFailedEvent = BaseWebhookEvent(
 	}),
 );
 
+/**
+ * https://docs.abacatepay.com/pages/webhooks#payout-failed
+ */
 export type WebhookPayoutFailedEvent = z.infer<typeof WebhookPayoutFailedEvent>;
 
 /**
@@ -66,6 +72,9 @@ export const WebhookPayoutDoneEvent = BaseWebhookEvent(
 	}),
 );
 
+/**
+ * https://docs.abacatepay.com/pages/webhooks#payout-done
+ */
 export type WebhookPayoutDoneEvent = z.infer<typeof WebhookPayoutDoneEvent>;
 
 /**
@@ -124,15 +133,21 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 	}),
 );
 
+/**
+ * https://docs.abacatepay.com/pages/webhooks#billing-paid
+ */
 export type WebhookBillingPaidEvent = z.infer<typeof WebhookBillingPaidEvent>;
 
 /**
  * https://docs.abacatepay.com/pages/webhooks
  */
-export const WebhookEvent = z.union([
+export const WebhookEvent = z.discriminatedUnion('event', [
 	WebhookPayoutDoneEvent,
 	WebhookBillingPaidEvent,
 	WebhookPayoutFailedEvent,
 ]);
 
+/**
+ * https://docs.abacatepay.com/pages/webhooks
+ */
 export type WebhookEvent = z.infer<typeof WebhookEvent>;

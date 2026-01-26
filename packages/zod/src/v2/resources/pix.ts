@@ -29,4 +29,7 @@ export const APIQRCodePIX = z.object({
 	expiresAt: z.coerce.date().describe('QRCode expiration date and time.'),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/transparents/reference
+ */
 export type APIQRCodePIX = z.infer<typeof APIQRCodePIX>;

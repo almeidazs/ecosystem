@@ -22,4 +22,7 @@ export const APICustomer = z.object({
 		.optional(),
 });
 
+/**
+ * https://docs.abacatepay.com/pages/client/reference#estrutura
+ */
 export type APICustomer = z.infer<typeof APICustomer>;
