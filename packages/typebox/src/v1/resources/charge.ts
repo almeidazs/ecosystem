@@ -7,7 +7,10 @@ import { APICustomer } from './customer';
  */
 export const PaymentStatus = StringEnum(
 	['PENDING', 'EXPIRED', 'CANCELLED', 'PAID', 'REFUNDED'],
-	'Billing status. Can be `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.',
+	{
+		description:
+			'Billing status. Can be `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.',
+	},
 );
 
 export type PaymentStatus = Static<typeof PaymentStatus>;
@@ -15,17 +18,18 @@ export type PaymentStatus = Static<typeof PaymentStatus>;
 /**
  * https://docs.abacatepay.com/pages/payment/create#body-methods
  */
-export const PaymentMethod = StringEnum(['PIX', 'CARD'], 'Payment method.');
+export const PaymentMethod = StringEnum(['PIX', 'CARD'], {
+	description: 'Payment method.',
+});
 
 export type PaymentMethod = Static<typeof PaymentMethod>;
 
 /**
  * https://docs.abacatepay.com/pages/payment/create#body-frequency
  */
-export const PaymentFrequency = StringEnum(
-	['ONE_TIME', 'MULTIPLE_PAYMENTS'],
-	'Payment frequency.',
-);
+export const PaymentFrequency = StringEnum(['ONE_TIME', 'MULTIPLE_PAYMENTS'], {
+	description: 'Payment frequency.',
+});
 
 /**
  * https://docs.abacatepay.com/pages/payment/create#body-frequency

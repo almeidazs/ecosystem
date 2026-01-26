@@ -13,7 +13,7 @@ import {
  */
 export const WebhookEventType = StringEnum(
 	['withdraw.failed', 'withdraw.done', 'billing.paid'],
-	'Webhook event type.',
+	{ description: 'Webhook event type.' },
 );
 
 /**
