@@ -75,6 +75,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/AbacatePay/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	}
 }

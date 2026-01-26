@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/AbacatePay/ecosystem"
+		"url": "git+https://github.com/AbacatePay/ecosystem.git"
 	},
 	"main": "./dist/index.js",
 	"devDependencies": {
