@@ -4,7 +4,7 @@
 
 SDK oficial da **AbacatePay** para integrar pagamentos via **PIX** de forma simples, segura e totalmente tipada.
 
-O [`@abacatepay/sdk`](https://www.npmjs.com/package/@abacatepay/sdk) é um **wrapper de alto nível** sobre a API da AbacatePay, focado em **DX**, **TypeScript first** e **boas práticas de segurança**.
+O [`@abacatepay/sdk`](https://www.npmjs.com/package/@abacatepay/sdk) é um **wrapper versionado de alto nível** sobre a API da AbacatePay, focado em **DX**, **TypeScript first** e **boas práticas de segurança**.
 
 <img src="https://res.cloudinary.com/dkok1obj5/image/upload/v1767631413/avo_clhmaf.png" width="100%" alt="AbacatePay Open Source"/>
 
@@ -71,6 +71,35 @@ const customers = await abacate.customers.list({
 
 <div align="center">
 
+## Versionamento
+
+Você também pode usar facilmente a v1 da *AbacatePay* sem nenhum problema ou boilerplate, apenas passe `/v1` como sufixo da importação
+
+</div>
+
+```ts
+import { AbacatePay } from '@abacatepay/sdk/v1'
+
+const client = AbacatePay({ secret });
+```
+
+<div align="center">
+
+Você terá acesso a *todos os recursos* da v1, sem boilerplate, sem magia, apenas o SDK.
+</div>
+
+```ts
+const data = await abacate.withdraw.create({
+    method: 'PIX',
+    externalId: 'trx_abc123',
+    ...
+});
+
+console.log(data.receiptUrl);
+```
+
+<div align="center">
+
 ## Tratamento de erros
 
 Erros da API são normalizados e previsíveis com base no pacote [`@abacatepay/rest`](https://www.npmjs.com/package/@abacatepay/rest).
@@ -79,7 +108,7 @@ Erros da API são normalizados e previsíveis com base no pacote [`@abacatepay/r
 
 ```ts
 try {
-    await abacate.subscriptions.subscribe({ ... });
+    await abacate.subscriptions.create({ ... });
 } catch (error) {
     if (error instanceof HTTPError) {
         console.error(`An HTTP ocurred in route ${error.route} (Status ${error.status})`);
