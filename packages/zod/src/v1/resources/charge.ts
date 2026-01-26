@@ -39,97 +39,77 @@ export const PaymentFrequency = StringEnum(
 export type PaymentFrequency = z.infer<typeof PaymentFrequency>;
 
 export const APIProduct = z.object({
-	externalId: z.string({
-		description:
+	externalId: z
+		.string()
+		.describe(
 			'The product id on your system. We use this id to create your product on AbacatePay automatically, so make sure your id is unique.',
-	}),
-	name: z.string({
-		description: 'Product name.',
-	}),
+		),
+	name: z.string().describe('Product name.'),
 	quantity: z
-		.number({
-			description: 'Quantity of product being purchased',
-		})
+		.number()
+		.describe('Quantity of product being purchased')
 		.int()
 		.min(1),
 	price: z
-		.number({
-			description:
-				'Price per unit of product in cents. The minimum is 100 (1 BRL).',
-		})
+		.number()
+		.describe('Price per unit of product in cents. The minimum is 100 (1 BRL).')
 		.int()
 		.min(100),
-	description: z
-		.string({
-			description: 'Detailed product description.',
-		})
-		.optional(),
+	description: z.string().describe('Detailed product description.').optional(),
 });
 
 /**
  * https://docs.abacatepay.com/pages/payment/reference#estrutura
  */
 export const APICharge = z.object({
-	id: z.string({
-		description: 'Unique billing identifier.',
-	}),
+	id: z.string().describe('Unique billing identifier.'),
 	frequency: PaymentFrequency,
-	externalId: z.nullable(z.string({ description: 'Bill ID in your system.' })),
+	externalId: z.nullable(z.string()).describe('Bill ID in your system.'),
 	url: z
-		.string({
-			description: 'URL where the user can complete the paymenz.',
-		})
+		.string()
+		.describe('URL where the user can complete the paymenz.')
 		.url(),
 	status: PaymentStatus,
-	devMode: z.boolean({
-		description:
+	devMode: z
+		.boolean()
+		.describe(
 			'Indicates whether the charge was created in a development (true) or production (false) environmenz.',
-	}),
+		),
 	metadata: z.object({
-		fee: z.number({
-			description: 'Fee applied by AbacatePay.',
-		}),
+		fee: z.number().describe('Fee applied by AbacatePay.'),
 		returnUrl: z
-			.string({
-				description:
-					'URL that the customer will be redirected to when clicking the “back” button.',
-			})
-			.url(),
+			.url()
+			.describe(
+				'URL that the customer will be redirected to when clicking the “back” button.',
+			),
 		completionUrl: z
-			.string({
-				description:
-					'URL that the customer will be redirected to when making paymenz.',
-			})
-			.url(),
+			.url()
+			.describe(
+				'URL that the customer will be redirected to when making paymenz.',
+			),
 	}),
 	methods: PaymentMethod.array(),
 	products: z
-		.array(APIProduct, {
-			description: 'List of products included in the charge.',
-		})
+		.array(APIProduct)
+		.describe('List of products included in the charge.')
 		.min(1),
 	customer: APICustomer.optional(),
-	nextBilling: z.nullable(z.coerce.date(), {
-		description: 'Date and time of next charge, or null for one-time charges.',
-	}),
+	nextBilling: z
+		.nullable(z.coerce.date())
+		.describe('Date and time of next charge, or null for one-time charges.'),
 	allowCoupons: z
-		.boolean({
-			description: 'Whether or not to allow coupons for billing.',
-		})
+		.boolean()
+		.describe('Whether or not to allow coupons for billing.')
 		.optional(),
 	coupons: z
-		.array(z.string(), {
-			description:
-				'Coupons allowed in billing. Coupons are only considered if `allowCoupons` is true.',
-		})
+		.array(z.string())
+		.describe(
+			'Coupons allowed in billing. Coupons are only considered if `allowCoupons` is true.',
+		)
 		.min(50)
 		.default([]),
-	createdAt: z.coerce.date({
-		description: 'Charge creation date and time.',
-	}),
-	updatedAt: z.coerce.date({
-		description: 'Charge last updated date and time.',
-	}),
+	createdAt: z.coerce.date().describe('Charge creation date and time.'),
+	updatedAt: z.coerce.date().describe('Charge last updated date and time.'),
 });
 
 /**

@@ -21,15 +21,11 @@ export const APIResponse = <Schema extends z.ZodTypeAny>(schema: Schema) =>
 	z.union([
 		z.object({
 			data: schema,
-			error: z.null({
-				description: 'Error message returned from the API.',
-			}),
+			error: z.null().describe('Error message returned from the API.'),
 		}),
 		z.object({
 			data: z.null(),
-			error: z.string({
-				description: 'Error message returned from the API.',
-			}),
+			error: z.string().describe('Error message returned from the API.'),
 		}),
 	]);
 
@@ -78,55 +74,48 @@ export type RESTPostCreateCustomerData = z.infer<
  * @reference https://docs.abacatepay.com/pages/payment/create
  */
 export const RESTPostCreateNewChargeBody = z.object({
-	methods: z.array(PaymentMethod, {
-		description:
+	methods: z
+		.array(PaymentMethod)
+		.describe(
 			'Payment methods that will be used. Currently, only `PIX` is supported, `CARD` is in beta.',
-	}),
+		),
 	frequency: PaymentFrequency,
 	products: z
-		.array(APIProduct, {
-			description: 'List of products your customer is paying for.',
-		})
+		.array(APIProduct)
+		.describe('List of products your customer is paying for.')
 		.min(1),
 	returnUrl: z
-		.string({
-			description:
-				'URL to redirect the customer if they click on the "Back" option.',
-		})
-		.url(),
+		.url()
+		.describe(
+			'URL to redirect the customer if they click on the "Back" option.',
+		),
 	completionUrl: z
-		.string({
-			description: 'URL to redirect the customer when payment is completed.',
-		})
-		.url(),
-	customerId: z.optional(
-		z.string({
-			description: 'The ID of a customer already registered in your store.',
-		}),
-	),
-	customer: z.optional(APICustomer.pick({ metadata: true }), {
-		description: "Your customer's data to create it.",
-	}),
-	allowCoupons: z.optional(
-		z.boolean({ description: 'If true coupons can be used in billing.' }),
-	),
+		.string()
+		.describe('URL to redirect the customer when payment is completed.'),
+	customerId: z
+		.optional(z.string())
+		.describe('The ID of a customer already registered in your store.'),
+	customer: z
+		.optional(APICustomer.pick({ metadata: true }))
+		.describe("Your customer's data to create it."),
+	allowCoupons: z
+		.optional(z.boolean())
+		.describe('If true coupons can be used in billing.'),
 	coupons: z.optional(
-		z.array(z.string(), {
-			description:
+		z
+			.array(z.string())
+			.describe(
 				'List of coupons available for resem used with billing (0-50 max.).',
-		}),
+			),
 	),
-	externalId: z.optional(
-		z.string({
-			description:
-				'If you have a unique identifier for your billing application, completely optional.',
-		}),
-	),
-	metadata: z.optional(
-		z.record(z.string(), z.any(), {
-			description: 'Optional billing metadata.',
-		}),
-	),
+	externalId: z
+		.optional(z.string())
+		.describe(
+			'If you have a unique identifier for your billing application, completely optional.',
+		),
+	metadata: z
+		.optional(z.record(z.string(), z.any()))
+		.describe('Optional billing metadata.'),
 });
 
 /**
@@ -162,22 +151,12 @@ export type RESTPostCreateNewChargeData = z.infer<
 export const RESTPostCreateQRCodePixBody = z.intersection(
 	RESTPostCreateNewChargeBody.pick({ customer: true, metadata: true }),
 	z.object({
-		amount: z
-			.number({
-				description: 'Charge amount in cents',
-			})
-			.int(),
+		amount: z.number().describe('Charge amount in cents').int(),
 		expiresIn: z.optional(
-			z
-				.number({
-					description: 'Billing expiration time in seconds.',
-				})
-				.int(),
+			z.int().describe('Billing expiration time in seconds.'),
 		),
 		description: z.optional(
-			z.string({
-				description: 'Message that will appear when paying the PIX.',
-			}),
+			z.string().describe('Message that will appear when paying the PIX.'),
 		),
 	}),
 );
@@ -213,9 +192,7 @@ export type RESTPostCreateQRCodePixData = z.infer<
  * @reference https://docs.abacatepay.com/pages/pix-qrcode/simulate-payment
  */
 export const RESTPostSimulatePaymentQueryParams = z.object({
-	id: z.string({
-		description: 'QRCode Pix ID.',
-	}),
+	id: z.string().describe('QRCode Pix ID.'),
 });
 
 /**
@@ -249,9 +226,7 @@ export type RESTPostSimulatePaymentData = z.infer<
  * @reference https://docs.abacatepay.com/pages/pix-qrcode/check
  */
 export const RESTGetCheckQRCodePixStatusQueryParams = z.object({
-	id: z.string({
-		description: 'QRCode Pix ID.',
-	}),
+	id: z.string().describe('QRCode Pix ID.'),
 });
 
 /**
@@ -270,9 +245,7 @@ export type RESTGetCheckQRCodePixStatusQueryParams = z.infer<
  */
 export const RESTGetCheckQRCodePixStatusData = APIResponse(
 	z.object({
-		expiresAt: z.coerce.date({
-			description: 'QRCode Pix expiration date.',
-		}),
+		expiresAt: z.coerce.date().describe('QRCode Pix expiration date.'),
 		status: PaymentStatus,
 	}),
 );
@@ -319,42 +292,29 @@ export type RESTGetListCustomersData = z.infer<typeof RESTGetListCustomersData>;
  *
  * @reference https://docs.abacatepay.com/pages/coupon/create
  */
-export const RESTPostCreateCouponBody = z.object(
-	{
-		data: z.object({
-			code: z.string({
-				description: 'Unique coupon identifier.',
-			}),
-			discount: z
-				.number({
-					description: 'Discount amount to be applied.',
-				})
-				.int(),
+export const RESTPostCreateCouponBody = z.object({
+	data: z
+		.object({
+			code: z.string().describe('Unique coupon identifier.'),
+			discount: z.number().describe('Discount amount to be applied.').int(),
 			discountKind: CouponDiscountKind,
-			notes: z.optional(
-				z.string({
-					description: 'Coupon description.',
-				}),
-			),
+			notes: z.optional(z.string()).describe('Coupon description.'),
 			maxRedeems: z.optional(
 				z
-					.number({
-						description:
-							'Number of times the coupon can be redeemed. -1 means this coupon can be redeemed without limits.',
-					})
+					.number()
+					.describe(
+						'Number of times the coupon can be redeemed. -1 means this coupon can be redeemed without limits.',
+					)
 					.int()
 					.min(-1)
 					.default(-1),
 			),
-			metadata: z.optional(z.record(z.string(), z.any()), {
-				description: 'Key value object for coupon metadata.',
-			}),
-		}),
-	},
-	{
-		description: 'Coupon data.',
-	},
-);
+			metadata: z
+				.optional(z.record(z.string(), z.any()))
+				.describe('Key value object for coupon metadata.'),
+		})
+		.describe('Coupon data.'),
+});
 
 /**
  * https://api.abacatepay.com/v1/coupon/create
@@ -383,37 +343,27 @@ export type RESTPostCreateCouponData = z.infer<typeof RESTPostCreateCouponData>;
  * @reference https://docs.abacatepay.com/pages/withdraw/create
  */
 export const RESTPostCreateNewWithdrawBody = z.object({
-	externalId: z.string({
-		description: 'Unique identifier of the withdrawal in your system.',
-	}),
-	method: z.literal('PIX', {
-		description: 'Withdrawal method available.',
-	}),
+	externalId: z
+		.string()
+		.describe('Unique identifier of the withdrawal in your system.'),
+	method: z.literal('PIX').describe('Withdrawal method available.'),
 	amount: z
-		.number({
-			description: 'Withdrawal value in cents (Min 350).',
-		})
+		.number()
+		.describe('Withdrawal value in cents (Min 350).')
 		.int()
 		.min(350),
-	pix: z.object(
-		{
+	pix: z
+		.object({
 			type: StringEnum(
 				['CPF', 'CNPJ', 'PHONE', 'EMAIL', 'RANDOM', 'BR_CODE'],
 				'PIX key type.',
 			),
-			key: z.string({
-				description: 'PIX key value.',
-			}),
-		},
-		{
-			description: 'PIX key data to receive the withdrawal.',
-		},
-	),
-	description: z.optional(
-		z.string({
-			description: 'Optional description of the withdrawal.',
-		}),
-	),
+			key: z.string().describe('PIX key value.'),
+		})
+		.describe('PIX key data to receive the withdrawal.'),
+	description: z
+		.optional(z.string())
+		.describe('Optional description of the withdrawal.'),
 });
 
 /**
@@ -447,9 +397,9 @@ export type RESTPostCreateNewWithdrawData = z.infer<
  * @reference https://docs.abacatepay.com/pages/withdraw/get
  */
 export const RESTGetSearchWithdrawQueryParams = z.object({
-	externalId: z.string({
-		description: 'Unique identifier of the withdrawal in your system.',
-	}),
+	externalId: z
+		.string()
+		.describe('Unique identifier of the withdrawal in your system.'),
 });
 
 /**
@@ -467,12 +417,8 @@ export type RESTGetSearchWithdrawQueryParams = z.infer<
  * @reference https://docs.abacatepay.com/pages/trustMRR/list
  */
 export const RESTGetRevenueByPeriodQueryParams = z.object({
-	startDate: z.string({
-		description: 'Period start date (YYYY-MM-DD format).',
-	}),
-	endDate: z.string({
-		description: 'Period end date (YYYY-MM-DD format).',
-	}),
+	startDate: z.string().describe('Period start date (YYYY-MM-DD format).'),
+	endDate: z.string().describe('Period end date (YYYY-MM-DD format).'),
 });
 
 /**
@@ -491,17 +437,9 @@ export type RESTGetRevenueByPeriodQueryParams = z.infer<
  */
 export const RESTGetMerchantData = APIResponse(
 	z.object({
-		name: z.string({
-			description: 'Store name.',
-		}),
-		website: z
-			.string({
-				description: 'Store website.',
-			})
-			.url(),
-		createdAt: z.coerce.date({
-			description: 'Store creation date.',
-		}),
+		name: z.string().describe('Store name.'),
+		website: z.url().describe('Store website.'),
+		createdAt: z.coerce.date().describe('Store creation date.'),
 	}),
 );
 
@@ -520,16 +458,16 @@ export type RESTGetMerchantData = z.infer<typeof RESTGetMerchantData>;
 export const RESTGetMRRData = APIResponse(
 	z.object({
 		mrr: z
-			.number({
-				description:
-					'hly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
-			})
+			.number()
+			.describe(
+				'hly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
+			)
 			.int(),
 		totalActiveSubscriptions: z
-			.number({
-				description:
-					'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
-			})
+			.number()
+			.describe(
+				'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
+			)
 			.int(),
 	}),
 );

@@ -30,16 +30,15 @@ export const BaseWebhookEvent = <
 ) =>
 	z.object({
 		data: schema,
-		id: z.string({
-			description: 'Unique identifier for the webhook.',
-		}),
-		event: z.literal(type, {
-			description: 'This field identifies the type of event received.',
-		}),
-		devMode: z.boolean({
-			description:
+		id: z.string().describe('Unique identifier for the webhook.'),
+		event: z
+			.literal([type])
+			.describe('This field identifies the type of event received.'),
+		devMode: z
+			.boolean()
+			.describe(
 				'Indicates whether the event occurred in the development environment.',
-		}),
+			),
 	});
 
 /**
@@ -48,17 +47,16 @@ export const BaseWebhookEvent = <
 export const WebhookWithdrawFailedEvent = BaseWebhookEvent(
 	'withdraw.failed',
 	z.object({
-		transaction: z.intersection(
-			APIWithdraw.omit({ status: true }),
-			z.object({
-				status: z.literal('CANCELLED', {
-					description: 'Status of the withdraw. Always `CANCELLED`.',
+		transaction: z
+			.intersection(
+				APIWithdraw.omit({ status: true }),
+				z.object({
+					status: z
+						.literal(['CANCELLED'])
+						.describe('Status of the withdraw. Always `CANCELLED`.'),
 				}),
-			}),
-			{
-				description: 'Transaction data.',
-			},
-		),
+			)
+			.describe('Transaction data.'),
 	}),
 );
 
@@ -75,17 +73,16 @@ export type WebhookWithdrawFailedEvent = z.infer<
 export const WebhookWithdrawDoneEvent = BaseWebhookEvent(
 	'withdraw.done',
 	z.object({
-		transaction: z.intersection(
-			APIWithdraw.omit({ status: true }),
-			z.object({
-				status: z.literal('COMPLETE', {
-					description: 'Status of the withdraw. Always `COMPLETE`.',
+		transaction: z
+			.intersection(
+				APIWithdraw.omit({ status: true }),
+				z.object({
+					status: z
+						.literal(['COMPLETE'])
+						.describe('Status of the withdraw. Always `COMPLETE`.'),
 				}),
-			}),
-			{
-				description: 'Transaction data.',
-			},
-		),
+			)
+			.describe('Transaction data.'),
 	}),
 );
 
@@ -101,81 +98,58 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 	'billing.paid',
 	z.object({
 		payment: z.intersection(
-			z.object(
-				{
+			z
+				.object({
 					payment: z.object({
 						amount: z
-							.number({
-								description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
-							})
-							.int(),
-						fee: z
-							.number({
-								description: 'The fee charged by AbacatePay.',
-							})
-							.int(),
+							.number()
+							.int()
+							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
+						fee: z.number().int().describe('The fee charged by AbacatePay.'),
 						method: PaymentMethod,
 					}),
-				},
-				{
-					description: 'Payment data.',
-				},
-			),
+				})
+				.describe('Payment data.'),
 			z.union([
 				z.object({
 					pixQrCode: z.object({
 						amount: z
-							.number({
-								description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
-							})
-							.int(),
-						id: z.string({
-							description: 'Unique billing identifier.',
-						}),
-						kind: z.literal('PIX', {
-							description: 'Kind of the payment',
-						}),
-						status: z.literal('PAID', {
-							description: 'Billing status, can only be `PAID` here',
-						}),
+							.number()
+							.int()
+							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
+						id: z.string().describe('Unique billing identifier.'),
+						kind: z.literal(['PIX']).describe('Kind of the payment'),
+						status: z
+							.literal(['PAID'])
+							.describe('Billing status, can only be `PAID` here'),
 					}),
 				}),
 				z.object({
 					billing: z.object({
 						amount: z
-							.number({
-								description: 'Charge amount in cents (e.g. 4000 = R$40.00).',
-							})
-							.int(),
-						id: z.string({
-							description: 'Unique billing identifier.',
-						}),
-						status: z.literal('PAID', {
-							description: 'Status of the payment. Always `PAID`.',
-						}),
-						couponsUsed: z.array(z.string(), {
-							description: 'Counpons used in the billing.',
-						}),
-						customer: APICustomer,
-						frequency: PaymentFrequency,
-						kind: z.array(PaymentMethod, {
-							description: 'Payment methods.',
-						}),
-						paidAmount: z
-							.number({
-								description: 'Charge amount in cents.',
-							})
-							.int(),
-						products: z.intersection(
+							.number()
+							.int()
+							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
+						id: z.string().describe('Unique billing identifier.'),
+						status: z
+							.literal(['PAID'])
+							.describe('Status of the payment. Always `PAID`.'),
+						couponsUsed: z
+							.array(z.string())
+							.describe('Counpons used in the billing.'),
+					}),
+					customer: APICustomer,
+					frequency: PaymentFrequency,
+					kind: z.array(PaymentMethod).describe('Payment methods.'),
+					paidAmount: z.number().int().describe('Charge amount in cents.'),
+					products: z
+						.intersection(
 							APIProduct.pick({ quantity: true, externalId: true }),
 							z.object({
 								id: z.string(),
 							}),
-							{
-								description: 'Products used in the billing.',
-							},
-						),
-					}),
+						)
+						.describe('Products used in the billing.'),
 				}),
 			]),
 		),

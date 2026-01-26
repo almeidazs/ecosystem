@@ -18,43 +18,25 @@ export type WithdrawStatus = z.infer<typeof WithdrawStatus>;
  * https://docs.abacatepay.com/pages/withdraws/reference
  */
 export const APIWithdraw = z.object({
-	id: z.string({
-		description: 'Unique transaction identifier.',
-	}),
+	id: z.string().describe('Unique transaction identifier.'),
 	status: WithdrawStatus,
-	devMode: z.boolean({
-		description:
+	devMode: z
+		.boolean()
+		.describe(
 			'Indicates whether the transaction was created in a testing environment.',
-	}),
-	receiptUrl: z
-		.string({
-			description: 'Transaction proof URL.',
-		})
-		.url(),
-	amount: z
-		.number({
-			description: 'Withdraw value in cents.',
-		})
-		.int(),
-	platformFee: z
-		.number({
-			description: 'Platform fee in cents.',
-		})
-		.int(),
+		),
+	receiptUrl: z.url().describe('Transaction proof URL.'),
+	amount: z.number().describe('Withdraw value in cents.').int(),
+	platformFee: z.number().describe('Platform fee in cents.').int(),
 	externalId: z
-		.string({
-			description: 'External transaction identifier.',
-		})
+		.string()
+		.describe('External transaction identifier.')
 		.optional(),
-	createdAt: z.coerce.date({
-		description: 'Transaction creation date.',
-	}),
-	updatedAt: z.coerce.date({
-		description: 'Transaction update date.',
-	}),
-	kind: z.literal('WITHDRAW', {
-		description: "Transaction type. It will always be 'WITHDRAW'",
-	}),
+	createdAt: z.coerce.date().describe('Transaction creation date.'),
+	updatedAt: z.coerce.date().describe('Transaction update date.'),
+	kind: z
+		.literal('WITHDRAW')
+		.describe("Transaction type. It will always be 'WITHDRAW'"),
 });
 
 /**
