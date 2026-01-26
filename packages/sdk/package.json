@@ -1,15 +1,31 @@
 {
 	"name": "@abacatepay/sdk",
-	"version": "1.0.1",
+	"version": "1.2.0",
 	"type": "module",
 	"sideEffects": false,
 	"license": "Apache-2.0",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
-		}
+			"import": "./dist/index.js"
+		},
+		"./v1": {
+			"types": "./dist/v1/index.d.ts",
+			"import": "./dist/v1/index.js"
+		},
+		"./v1/*": {
+			"types": "./dist/v1/*.d.ts",
+			"import": "./dist/v1/*.js"
+		},
+		"./v2": {
+			"types": "./dist/v2/index.d.ts",
+			"import": "./dist/v2/index.js"
+		},
+		"./v2/*": {
+			"types": "./dist/v2/*.d.ts",
+			"import": "./dist/v2/*.js"
+		},
+		"./v*": null
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
