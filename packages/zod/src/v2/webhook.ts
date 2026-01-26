@@ -129,7 +129,7 @@ export type WebhookBillingPaidEvent = z.infer<typeof WebhookBillingPaidEvent>;
 /**
  * https://docs.abacatepay.com/pages/webhooks
  */
-export const WebhookEvent = z.union([
+export const WebhookEvent = z.discriminatedUnion('event', [
 	WebhookPayoutDoneEvent,
 	WebhookBillingPaidEvent,
 	WebhookPayoutFailedEvent,
