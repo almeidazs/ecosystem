@@ -12,7 +12,7 @@ export const APICustomer = z.object({
 		),
 	country: z.string().describe('Customer country.'),
 	name: z.string().describe("Customer's full name."),
-	email: z.string().email().describe("Customer's email"),
+	email: z.email().describe("Customer's email"),
 	taxId: z.string().describe("Customer's CPF or CNPJ."),
 	cellphone: z.string().describe("Customer's cell phone."),
 	zipCode: z.string().describe('Customer zip code.'),

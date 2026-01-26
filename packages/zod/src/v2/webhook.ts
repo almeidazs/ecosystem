@@ -1,4 +1,4 @@
-import { type ZodTypeAny, z } from 'zod';
+import { type _ZodType, z } from 'zod';
 import { StringEnum } from '../utils';
 import { APIPayout, PaymentMethod } from '.';
 
@@ -17,7 +17,7 @@ export type WebhookEventType = z.infer<typeof WebhookEventType>;
 
 export const BaseWebhookEvent = <
 	Type extends z.infer<typeof WebhookEventType>,
-	Schema extends ZodTypeAny,
+	Schema extends _ZodType,
 >(
 	type: Type,
 	schema: Schema,
@@ -123,7 +123,6 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 								.literal('PAID')
 								.describe('Status of the payment. Always `PAID`.'),
 							url: z
-								.string()
 								.url()
 								.describe('URL where the user can complete the payment.'),
 						}),

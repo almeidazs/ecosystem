@@ -25,9 +25,7 @@ export const APIPayout = z.object({
 		.describe(
 			'Indicates whether the transaction was created in a testing environment.',
 		),
-	receiptUrl: z
-		.union([z.null(), z.string().url()])
-		.describe('Transaction proof URL.'),
+	receiptUrl: z.union([z.null(), z.url()]).describe('Transaction proof URL.'),
 	amount: z.number().int().describe('Payout value in cents.'),
 	platformFee: z.number().int().describe('Platform fee in cents.'),
 	externalId: z.string().describe('External transaction identifier.'),

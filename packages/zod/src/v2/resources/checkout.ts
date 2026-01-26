@@ -42,10 +42,7 @@ export const APICheckout = z.object({
 	externalId: z
 		.union([z.null(), z.string()])
 		.describe('Bill ID in your system.'),
-	url: z
-		.string()
-		.url()
-		.describe('URL where the user can complete the payment.'),
+	url: z.url().describe('URL where the user can complete the payment.'),
 	items: z
 		.array(
 			z.object({
@@ -65,13 +62,11 @@ export const APICheckout = z.object({
 		.record(z.string(), z.any())
 		.describe('Additial metadata for the charge.'),
 	returnUrl: z
-		.string()
 		.url()
 		.describe(
 			'URL that the customer will be redirected to when clicking the "back" button.',
 		),
 	completionUrl: z
-		.string()
 		.url()
 		.describe(
 			'URL that the customer will be redirected to when making payment.',

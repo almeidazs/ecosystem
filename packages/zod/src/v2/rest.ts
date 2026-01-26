@@ -54,17 +54,9 @@ export const APIResponseWithPagination = <Schema extends _ZodType>(
 				.describe('Whether the request was successfull or not.'),
 			pagination: z.object({
 				page: z.number().int().min(1).describe('Current page.'),
-				limit: z
-					.number()
-					.int()
-					.min(0)
-					.describe('Number of items per page.'),
+				limit: z.number().int().min(0).describe('Number of items per page.'),
 				items: z.number().int().min(0).describe('Number of items.'),
-				totalPages: z
-					.number()
-					.int()
-					.min(0)
-					.describe('Number of pages.'),
+				totalPages: z.number().int().min(0).describe('Number of pages.'),
 			}),
 		}),
 		z.object({
@@ -96,11 +88,7 @@ export const APIResponseWithCursorBasedPagination = <Schema extends _ZodType>(
 				.literal([true])
 				.describe('Whether the request was successfull or not.'),
 			pagination: z.object({
-				limit: z
-					.number()
-					.int()
-					.min(0)
-					.describe('Number of items per page.'),
+				limit: z.number().int().min(0).describe('Number of items per page.'),
 				hasNext: z
 					.boolean()
 					.describe('Indicates whether there is a next page.'),
@@ -134,14 +122,12 @@ export type APIResponseWithCursorBasedPagination<Schema extends z._ZodType> =
 export const RESTPostCreateNewCheckoutBody = z.object({
 	methods: PaymentMethod,
 	returnUrl: z
-		.string()
 		.url()
 		.describe(
 			'URL to redirect the customer if they click on the "Back" option.',
 		)
 		.optional(),
 	completionUrl: z
-		.string()
 		.url()
 		.describe('URL to redirect the customer when payment is completed.')
 		.optional(),
@@ -899,7 +885,7 @@ export type RESTGetListSubscriptionsData = z.infer<
  */
 export const RESTPostCreateCustomerBody = APICustomer.pick({
 	email: true,
-}).merge(
+}).and(
 	APICustomer.pick({
 		name: true,
 		taxId: true,
@@ -1107,7 +1093,7 @@ export type RESTGetRevenueByPeriodData = z.infer<
  */
 export const RESTGetMerchantData = z.object({
 	name: z.string().describe('Store name.'),
-	website: z.string().url().describe('Store website.'),
+	website: z.url().describe('Store website.'),
 	createdAt: z.coerce.date().describe('Store creation date.'),
 });
 
