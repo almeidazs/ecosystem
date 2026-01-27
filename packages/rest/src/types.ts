@@ -86,7 +86,7 @@ export interface RetryOptions {
 
 export interface RetryContext {
 	attempt: number;
-	response: Response;
+	response?: Response;
 	options: MakeRequestOptions;
 }
 
@@ -101,3 +101,16 @@ export type HTTPMethodLike =
 	| 'PATCH'
 	| 'DELETE'
 	| (string & {});
+
+export interface InternalHandleErrorOptions {
+	route: string;
+	attempt: number;
+	response: Response;
+	retry: RetryOptions;
+	options: MakeRequestOptions;
+}
+
+export type InternalHandleTimeoutErrorOptions = Omit<
+	InternalHandleErrorOptions,
+	'response'
+>;

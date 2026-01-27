@@ -36,23 +36,3 @@ export class HTTPError extends Error {
 		this.name = `HTTPError(${route})`;
 	}
 }
-
-/**
- * Represents a timeout error.
- */
-export class TimeoutError extends Error {
-	public constructor(
-		/**
-		 * The content of the error message.
-		 */
-		public message: string,
-		/**
-		 * The timeout used in the request.
-		 */
-		public timeout: number,
-	) {
-		super(message);
-
-		this.name = 'TimeoutError';
-	}
-}
