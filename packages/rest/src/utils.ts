@@ -9,6 +9,8 @@ export const sleep = (ms: number) =>
  */
 export const RATE_LIMIT_STATUS_CODE = 429;
 
+export const SERVICE_UNAVAILABLE_STATUS_CODE = 503;
+
 /**
  * Array of any retryable status code.
  */
@@ -18,7 +20,7 @@ export const RETRYABLE_STATUS = [
 	RATE_LIMIT_STATUS_CODE,
 	500,
 	502,
-	503,
+	SERVICE_UNAVAILABLE_STATUS_CODE,
 	504,
 ];
 
@@ -34,3 +36,6 @@ export const backoff = (attempt: number) => {
 
 	return Math.floor(exp + jitter);
 };
+
+export const isTimeoutError = (err: unknown) =>
+	(err as { name?: string })?.name === 'TimeoutError';

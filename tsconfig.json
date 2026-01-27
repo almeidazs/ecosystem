@@ -1,0 +1,18 @@
+{
+	"files": [],
+	"references": [
+		{ "path": "./packages/rest" },
+		{ "path": "./packages/types" },
+		{ "path": "./packages/fastify" },
+		{ "path": "./packages/express" },
+		{ "path": "./packages/zod" },
+		{ "path": "./packages/typebox" },
+		{ "path": "./packages/supabase" },
+		{ "path": "./packages/sdk" },
+		{ "path": "./packages/hono" },
+		{ "path": "./packages/eslint-plugin" },
+		{ "path": "./packages/elysia" },
+		{ "path": "./packages/better-auth" },
+		{ "path": "./packages/adapters" }
+	]
+}

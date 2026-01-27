@@ -3,9 +3,8 @@ export { REST } from './client';
 export {
 	AbacatePayError,
 	HTTPError,
-	TimeoutError,
 } from './errors';
 
 export * from './types';
-
+export { RETRYABLE_STATUS } from './utils';
 export { API_VERSION, version } from './version';

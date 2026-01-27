@@ -1,24 +1,21 @@
-import { AbacatePayError, HTTPError, TimeoutError } from './errors';
+import { AbacatePayError, HTTPError } from './errors';
 import type {
+	InternalHandleErrorOptions,
+	InternalHandleTimeoutErrorOptions,
 	MakeRequestOptions,
 	MakeRequestOptionsWithoutMethod,
 	RESTOptions,
 } from './types';
 import {
 	backoff,
+	isTimeoutError,
 	RATE_LIMIT_STATUS_CODE,
 	RETRYABLE_STATUS,
+	SERVICE_UNAVAILABLE_STATUS_CODE,
 	sleep,
 } from './utils';
 
-interface HandleErrorOptions {
-	route: string;
-	attempt: number;
-	response: Response;
-	options: MakeRequestOptions;
-}
-
-const FIVE_SEC_IN_MS = 5_000;
+const DEFAULT_TIMEOUT_IN_MS = 5_000;
 
 /**
  * Represents the class that manages handlers for endpoints.
@@ -28,7 +25,7 @@ export class REST {
 		/**
 		 * Options to use in all requests.
 		 */
-		public readonly options = {} as RESTOptions,
+		public options: RESTOptions = {},
 	) {}
 
 	/**
@@ -82,7 +79,9 @@ export class REST {
 		attempt = 0,
 	): Promise<R> {
 		const url = this.makeURL(route, options.query);
-		const timeout = this.options.timeout ?? FIVE_SEC_IN_MS;
+		const { timeout = DEFAULT_TIMEOUT_IN_MS } = this.options;
+
+		const retry = options.retry ?? this.options.retry ?? { max: 3 };
 
 		try {
 			const response = await fetch(url, {
@@ -93,54 +92,75 @@ export class REST {
 			});
 
 			if (!response.ok)
-				return this.handleError({ route, attempt, options, response });
+				return this.handleError({ route, retry, attempt, options, response });
 
 			return this.process<R>(response);
 		} catch (err) {
-			// biome-ignore lint/suspicious/noExplicitAny: Use any to check if the error is a timeout error.
-			const isTimeoutError = (err as any)?.name === 'TimeoutError';
-
-			if (isTimeoutError)
-				// TODO: Add retryable timeout
-				throw new TimeoutError(
-					`Your request timed out (Waited for ${timeout}ms)`,
-					timeout,
-				);
+			if (isTimeoutError(err))
+				return this.handleTimeout<R>({ retry, route, attempt, options });
 
 			throw new HTTPError(`${err}`, route, 0, '');
 		}
 	}
 
+	private async handleTimeout<R>({
+		retry,
+		route,
+		attempt,
+		options,
+	}: InternalHandleTimeoutErrorOptions) {
+		if (attempt >= retry.max)
+			throw new HTTPError(
+				`${retry.max} attempts were performed, all failed`,
+				route,
+				SERVICE_UNAVAILABLE_STATUS_CODE,
+				options.method,
+			);
+
+		if (retry.onRetry)
+			await retry.onRetry({
+				attempt,
+				options,
+			});
+
+		const delay = (retry.backoff ?? backoff)(attempt);
+
+		await sleep(delay);
+
+		return this.makeRequest<R>(route, options, attempt + 1);
+	}
+
 	private async handleError<R>({
 		route,
+		retry,
 		options,
 		attempt,
 		response,
-	}: HandleErrorOptions) {
-		if (RETRYABLE_STATUS.includes(response.status)) {
-			const { onRateLimit, retry = options.retry ?? { max: 3 } } = this.options;
+	}: InternalHandleErrorOptions) {
+		if (!RETRYABLE_STATUS.includes(response.status)) {
+			const { error } = await response.json();
 
-			if (attempt >= retry.max)
-				throw new HTTPError(
-					`${retry.max} attempts were performed, all failed`,
-					route,
-					response.status,
-					options.method,
-				);
-			if (retry.onRetry) await retry.onRetry({ attempt, options, response });
-			if (response.status === RATE_LIMIT_STATUS_CODE && onRateLimit)
-				await onRateLimit(response);
-
-			const delay = (retry.backoff ?? backoff)(attempt);
-
-			await sleep(delay);
-
-			return this.makeRequest<R>(route, options, attempt + 1);
+			throw new AbacatePayError(error);
 		}
 
-		const { error } = await response.json();
+		const { onRateLimit } = this.options;
 
-		throw new AbacatePayError(error);
+		if (attempt >= retry.max)
+			throw new HTTPError(
+				`${retry.max} attempts were performed, all failed`,
+				route,
+				response.status,
+				options.method,
+			);
+		if (retry.onRetry) await retry.onRetry({ attempt, options, response });
+		if (response.status === RATE_LIMIT_STATUS_CODE && onRateLimit)
+			await onRateLimit(response);
+
+		const delay = (retry.backoff ?? backoff)(attempt);
+
+		await sleep(delay);
+
+		return this.makeRequest<R>(route, options, attempt + 1);
 	}
 
 	private async process<R>(response: Response) {
