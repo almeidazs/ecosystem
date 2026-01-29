@@ -151,7 +151,7 @@ export type RESTPostCreateNewChargeData = z.infer<
 export const RESTPostCreateQRCodePixBody = z.intersection(
 	RESTPostCreateNewChargeBody.pick({ customer: true, metadata: true }),
 	z.object({
-		amount: z.number().describe('Charge amount in cents').int(),
+		amount: z.int().describe('Charge amount in cents'),
 		expiresIn: z.optional(
 			z.int().describe('Billing expiration time in seconds.'),
 		),
@@ -296,16 +296,15 @@ export const RESTPostCreateCouponBody = z.object({
 	data: z
 		.object({
 			code: z.string().describe('Unique coupon identifier.'),
-			discount: z.number().describe('Discount amount to be applied.').int(),
+			discount: z.int().describe('Discount amount to be applied.'),
 			discountKind: CouponDiscountKind,
 			notes: z.optional(z.string()).describe('Coupon description.'),
 			maxRedeems: z.optional(
 				z
-					.number()
+					.int()
 					.describe(
 						'Number of times the coupon can be redeemed. -1 means this coupon can be redeemed without limits.',
 					)
-					.int()
 					.min(-1)
 					.default(-1),
 			),
@@ -347,11 +346,7 @@ export const RESTPostCreateNewWithdrawBody = z.object({
 		.string()
 		.describe('Unique identifier of the withdrawal in your system.'),
 	method: z.literal('PIX').describe('Withdrawal method available.'),
-	amount: z
-		.number()
-		.describe('Withdrawal value in cents (Min 350).')
-		.int()
-		.min(350),
+	amount: z.int().describe('Withdrawal value in cents (Min 350).').min(350),
 	pix: z
 		.object({
 			type: StringEnum(
@@ -458,17 +453,15 @@ export type RESTGetMerchantData = z.infer<typeof RESTGetMerchantData>;
 export const RESTGetMRRData = APIResponse(
 	z.object({
 		mrr: z
-			.number()
+			.int()
 			.describe(
 				'hly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
-			)
-			.int(),
+			),
 		totalActiveSubscriptions: z
-			.number()
+			.int()
 			.describe(
 				'Total active subscriptions. Value 0 indicates that there are no currently active subscriptions.',
-			)
-			.int(),
+			),
 	}),
 );
 

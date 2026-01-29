@@ -8,18 +8,9 @@ export const APIStore = z.object({
 	name: z.string().describe('Name of your store/company.'),
 	balance: z
 		.object({
-			available: z
-				.number()
-				.int()
-				.describe('Balance available for withdrawal in cents.'),
-			pending: z
-				.number()
-				.int()
-				.describe('Balance pending confirmation in cents.'),
-			blocked: z
-				.number()
-				.int()
-				.describe('Balance blocked in disputes in cents.'),
+			available: z.int().describe('Balance available for withdrawal in cents.'),
+			pending: z.int().describe('Balance pending confirmation in cents.'),
+			blocked: z.int().describe('Balance blocked in disputes in cents.'),
 		})
 		.describe('Object containing information about your account balances.'),
 });

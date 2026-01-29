@@ -53,10 +53,10 @@ export const APIResponseWithPagination = <Schema extends _ZodType>(
 				.literal([true])
 				.describe('Whether the request was successfull or not.'),
 			pagination: z.object({
-				page: z.number().int().min(1).describe('Current page.'),
-				limit: z.number().int().min(0).describe('Number of items per page.'),
-				items: z.number().int().min(0).describe('Number of items.'),
-				totalPages: z.number().int().min(0).describe('Number of pages.'),
+				page: z.int().min(1).describe('Current page.'),
+				limit: z.int().min(0).describe('Number of items per page.'),
+				items: z.int().min(0).describe('Number of items.'),
+				totalPages: z.int().min(0).describe('Number of pages.'),
 			}),
 		}),
 		z.object({
@@ -88,7 +88,7 @@ export const APIResponseWithCursorBasedPagination = <Schema extends _ZodType>(
 				.literal([true])
 				.describe('Whether the request was successfull or not.'),
 			pagination: z.object({
-				limit: z.number().int().min(0).describe('Number of items per page.'),
+				limit: z.int().min(0).describe('Number of items per page.'),
 				hasNext: z
 					.boolean()
 					.describe('Indicates whether there is a next page.'),
@@ -239,11 +239,10 @@ export type RESTGetCheckoutQueryParams = z.infer<
  */
 export const RESTPostCreateCouponBody = z.object({
 	code: z.string().describe('Unique coupon identifier.'),
-	discount: z.number().int().describe('Discount amount to be applied.'),
+	discount: z.int().describe('Discount amount to be applied.'),
 	discountKind: CouponDiscountKind,
 	notes: z.string().describe('Coupon description').optional(),
 	maxRedeems: z
-		.number()
 		.int()
 		.min(-1)
 		.describe(
@@ -296,13 +295,8 @@ export type RESTGetListCouponsData = z.infer<typeof RESTGetListCouponsData>;
  * @reference https://docs.abacatepay.com/pages/coupons/list
  */
 export const RESTGetListCouponsQueryParams = z.object({
-	page: z.number().int().min(1).default(1).describe('Page number.').optional(),
-	limit: z
-		.number()
-		.int()
-		.min(1)
-		.describe('Number of items per page.')
-		.optional(),
+	page: z.int().min(1).default(1).describe('Page number.').optional(),
+	limit: z.int().min(1).describe('Number of items per page.').optional(),
 });
 
 /**
@@ -417,11 +411,7 @@ export const RESTPostCreateNewPayoutBody = z.object({
 	externalId: z
 		.string()
 		.describe('Unique identifier of the payout in your system.'),
-	amount: z
-		.number()
-		.int()
-		.min(350)
-		.describe('Payout value in cents (Min 350).'),
+	amount: z.int().min(350).describe('Payout value in cents (Min 350).'),
 	description: z.string().describe('Optional payout description.').optional(),
 });
 
@@ -474,13 +464,8 @@ export type RESTGetSearchPayoutQueryParams = z.infer<
  * @reference https://docs.abacatepay.com/pages/payouts/list
  */
 export const RESTGetListPayoutsQueryParams = z.object({
-	page: z.number().int().min(1).default(1).describe('Page number.').optional(),
-	limit: z
-		.number()
-		.int()
-		.min(1)
-		.describe('Number of items per page.')
-		.optional(),
+	page: z.int().min(1).default(1).describe('Page number.').optional(),
+	limit: z.int().min(1).describe('Number of items per page.').optional(),
 });
 
 /**
@@ -515,12 +500,8 @@ export const RESTPostCreateQRCodePixBody = RESTPostCreateNewCheckoutBody.pick({
 	customer: true,
 	metadata: true,
 }).extend({
-	amount: z.number().int().describe('Charge amount in cents.'),
-	expiresIn: z
-		.number()
-		.int()
-		.describe('Billing expiration time in seconds.')
-		.optional(),
+	amount: z.int().describe('Charge amount in cents.'),
+	expiresIn: z.int().describe('Billing expiration time in seconds.').optional(),
 	description: z
 		.string()
 		.describe('Message that will appear when paying the PIX.')
@@ -688,13 +669,8 @@ export type RESTPostCreateProductData = z.infer<
  * @reference https://docs.abacatepay.com/pages/products/list
  */
 export const RESTGetListProductsQueryParams = z.object({
-	page: z.number().int().min(1).default(1).describe('Page number.').optional(),
-	limit: z
-		.number()
-		.int()
-		.min(1)
-		.describe('Number of items per page.')
-		.optional(),
+	page: z.int().min(1).default(1).describe('Page number.').optional(),
+	limit: z.int().min(1).describe('Number of items per page.').optional(),
 });
 
 /**
@@ -774,14 +750,12 @@ export type RESTGetStoreDetailsData = z.infer<typeof RESTGetStoreDetailsData>;
  */
 export const RESTGetMRRData = z.object({
 	mrr: z
-		.number()
 		.int()
 		.min(0)
 		.describe(
 			'Monthly recurring revenue in cents. Value 0 indicates that there is no recurring revenue at the moment.',
 		),
 	totalActiveSubscriptions: z
-		.number()
 		.int()
 		.min(0)
 		.describe(
@@ -845,12 +819,7 @@ export type RESTPostCreateSubscriptionData = z.infer<
  */
 export const RESTGetListSubscriptionsQueryParams = z.object({
 	cursor: z.string().describe('Cursor for the pagination.').optional(),
-	limit: z
-		.number()
-		.int()
-		.default(20)
-		.describe('Number of items per page.')
-		.optional(),
+	limit: z.int().default(20).describe('Number of items per page.').optional(),
 });
 
 /**
@@ -940,13 +909,8 @@ export type RESTGetListCustomersData = z.infer<typeof RESTGetListCustomersData>;
  * @reference https://docs.abacatepay.com/pages/client/list
  */
 export const RESTGetListCustomersQueryParams = z.object({
-	page: z.number().int().min(1).default(1).describe('Page number.').optional(),
-	limit: z
-		.number()
-		.int()
-		.min(1)
-		.describe('Number of items per page.')
-		.optional(),
+	page: z.int().min(1).default(1).describe('Page number.').optional(),
+	limit: z.int().min(1).describe('Number of items per page.').optional(),
 });
 
 /**
@@ -1053,23 +1017,16 @@ export type RESTGetRevenueByPeriodQueryParams = z.infer<
  * @reference https://docs.abacatepay.com/pages/trustMRR/list
  */
 export const RESTGetRevenueByPeriodData = z.object({
-	totalRevenue: z
-		.number()
-		.int()
-		.describe('Total revenue for the period in cents.'),
-	totalTransactions: z
-		.number()
-		.int()
-		.describe('Total transactions in the period.'),
+	totalRevenue: z.int().describe('Total revenue for the period in cents.'),
+	totalTransactions: z.int().describe('Total transactions in the period.'),
 	transactionsPerDay: z
 		.record(
 			z.string(),
 			z.object({
 				amount: z
-					.number()
 					.int()
 					.describe("Total value of the day's transactions in cents."),
-				count: z.number().int().describe('Number of transactions for the day.'),
+				count: z.int().describe('Number of transactions for the day.'),
 			}),
 		)
 		.describe(

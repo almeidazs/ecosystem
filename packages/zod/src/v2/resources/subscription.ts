@@ -34,7 +34,7 @@ export type SubscriptionStatus = z.infer<typeof SubscriptionStatus>;
  */
 export const APISubscription = z.object({
 	id: z.string().describe('The ID of the subscription.'),
-	amount: z.number().int().describe('The subscription value in cents.'),
+	amount: z.int().describe('The subscription value in cents.'),
 	currency: z.string().describe('Subscription currency.'),
 	name: z.string().describe('Subscription name.'),
 	description: z.string().describe('Subscription description.'),
@@ -59,7 +59,6 @@ export const APISubscription = z.object({
 		})
 		.describe('Billing frequency configuration.'),
 	dayOfProcessing: z
-		.number()
 		.int()
 		.min(1)
 		.max(31)
@@ -69,12 +68,8 @@ export const APISubscription = z.object({
 		.describe('Identifier of the customer who will have the signature.'),
 	retryPolicy: z
 		.object({
-			maxRetry: z
-				.number()
-				.int()
-				.describe('Maximum number of billing attempts.'),
+			maxRetry: z.int().describe('Maximum number of billing attempts.'),
 			retryEvery: z
-				.number()
 				.int()
 				.describe('Interval in days between charging attempts.'),
 		})

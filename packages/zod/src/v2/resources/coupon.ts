@@ -39,13 +39,11 @@ export const APICoupon = z.object({
 	discountKind: CouponDiscountKind,
 	status: CouponStatus,
 	maxRedeems: z
-		.number()
 		.int()
 		.describe(
 			'Limit on the number of times the coupon can be used. Use `-1` for unlimited coupons or a specific number to limit usage.',
 		),
 	redeemsCount: z
-		.number()
 		.int()
 		.min(0)
 		.describe(

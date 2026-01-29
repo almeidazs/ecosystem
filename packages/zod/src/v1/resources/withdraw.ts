@@ -26,8 +26,8 @@ export const APIWithdraw = z.object({
 			'Indicates whether the transaction was created in a testing environment.',
 		),
 	receiptUrl: z.url().describe('Transaction proof URL.'),
-	amount: z.number().describe('Withdraw value in cents.').int(),
-	platformFee: z.number().describe('Platform fee in cents.').int(),
+	amount: z.int().describe('Withdraw value in cents.'),
+	platformFee: z.int().describe('Platform fee in cents.'),
 	externalId: z
 		.string()
 		.describe('External transaction identifier.')

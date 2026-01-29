@@ -29,13 +29,9 @@ export type PaymentMethod = z.infer<typeof PaymentMethod>;
  */
 export const APICheckout = z.object({
 	id: z.string().describe('Unique billing identifier.'),
-	amount: z
-		.number()
-		.int()
-		.min(100)
-		.describe('Total amount to be paid in cents.'),
+	amount: z.int().min(100).describe('Total amount to be paid in cents.'),
 	paidAmount: z
-		.union([z.null(), z.number().int().min(100)])
+		.union([z.null(), z.int().min(100)])
 		.describe(
 			'Amount already paid in cents.`null` if it has not yet been paid.',
 		),
@@ -47,7 +43,7 @@ export const APICheckout = z.object({
 		.array(
 			z.object({
 				id: z.string().describe('Product ID.'),
-				quantity: z.number().int().min(1).describe('Item quantity.'),
+				quantity: z.int().min(1).describe('Item quantity.'),
 			}),
 		)
 		.min(1)

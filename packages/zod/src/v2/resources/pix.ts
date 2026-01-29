@@ -6,10 +6,7 @@ import { PaymentStatus } from './checkout';
  */
 export const APIQRCodePIX = z.object({
 	id: z.string().describe('Unique QRCode PIX identifier.'),
-	amount: z
-		.number()
-		.int()
-		.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
+	amount: z.int().describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
 	status: PaymentStatus,
 	devMode: z
 		.boolean()
@@ -21,7 +18,6 @@ export const APIQRCodePIX = z.object({
 		.string()
 		.describe('PIX code in Base64 format (Useful for displaying in images).'),
 	platformFee: z
-		.number()
 		.int()
 		.describe('Platform fee in cents. Example: 80 means R$0.80.'),
 	createdAt: z.coerce.date().describe('QRCode PIX creation date and time.'),

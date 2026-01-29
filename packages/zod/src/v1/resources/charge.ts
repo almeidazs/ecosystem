@@ -45,15 +45,10 @@ export const APIProduct = z.object({
 			'The product id on your system. We use this id to create your product on AbacatePay automatically, so make sure your id is unique.',
 		),
 	name: z.string().describe('Product name.'),
-	quantity: z
-		.number()
-		.describe('Quantity of product being purchased')
-		.int()
-		.min(1),
+	quantity: z.int().describe('Quantity of product being purchased').min(1),
 	price: z
-		.number()
-		.describe('Price per unit of product in cents. The minimum is 100 (1 BRL).')
 		.int()
+		.describe('Price per unit of product in cents. The minimum is 100 (1 BRL).')
 		.min(100),
 	description: z.string().describe('Detailed product description.').optional(),
 });

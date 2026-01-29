@@ -21,7 +21,7 @@ export const APIProduct = z.object({
 	id: z.string().describe('The ID of your product.'),
 	externalId: z.string().describe('Unique product identifier in your system.'),
 	name: z.string().describe('Product name.'),
-	price: z.number().int().describe('Product price in cents.'),
+	price: z.int().describe('Product price in cents.'),
 	currency: z.string().describe('Product currency.'),
 	status: ProductStatus,
 	devMode: z

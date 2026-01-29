@@ -102,10 +102,9 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				.object({
 					payment: z.object({
 						amount: z
-							.number()
 							.int()
 							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
-						fee: z.number().int().describe('The fee charged by AbacatePay.'),
+						fee: z.int().describe('The fee charged by AbacatePay.'),
 						method: PaymentMethod,
 					}),
 				})
@@ -114,7 +113,6 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				z.object({
 					pixQrCode: z.object({
 						amount: z
-							.number()
 							.int()
 							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
 						id: z.string().describe('Unique billing identifier.'),
@@ -127,7 +125,6 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 				z.object({
 					billing: z.object({
 						amount: z
-							.number()
 							.int()
 							.describe('Charge amount in cents (e.g. 4000 = R$40.00).'),
 						id: z.string().describe('Unique billing identifier.'),
@@ -141,7 +138,7 @@ export const WebhookBillingPaidEvent = BaseWebhookEvent(
 					customer: APICustomer,
 					frequency: PaymentFrequency,
 					kind: z.array(PaymentMethod).describe('Payment methods.'),
-					paidAmount: z.number().int().describe('Charge amount in cents.'),
+					paidAmount: z.int().describe('Charge amount in cents.'),
 					products: z
 						.intersection(
 							APIProduct.pick({ quantity: true, externalId: true }),
