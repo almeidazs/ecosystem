@@ -60,9 +60,7 @@ export const APICharge = z.object({
 	id: z.string().describe('Unique billing identifier.'),
 	frequency: PaymentFrequency,
 	externalId: z.nullable(z.string()).describe('Bill ID in your system.'),
-	url: z
-		.url()
-		.describe('URL where the user can complete the paymenz.'),
+	url: z.url().describe('URL where the user can complete the payment.'),
 	status: PaymentStatus,
 	devMode: z
 		.boolean()
@@ -79,7 +77,7 @@ export const APICharge = z.object({
 		completionUrl: z
 			.url()
 			.describe(
-				'URL that the customer will be redirected to when making paymenz.',
+				'URL that the customer will be redirected to when making payment.',
 			),
 	}),
 	methods: PaymentMethod.array(),
